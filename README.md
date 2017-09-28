@@ -1,5 +1,4 @@
 # Bitcoin E-Commerce Store
-=============
 
 > Basic example of a Bitcoin ecommerce site. This solution is intended for small shops with few products.
 
