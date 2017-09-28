@@ -24,35 +24,35 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="Title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Body", type="text")
+     * @ORM\Column(name="body", type="text")
      */
     private $body;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="Price", type="float")
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="UpdatedAt", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="CreatedAt", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
