@@ -1,4 +1,16 @@
-Bitcoin E-Commerce Store
+# Bitcoin E-Commerce Store
 =============
 
-A Symfony project created on September 28, 2017, 1:45 am.
+> Basic example of a Bitcoin ecommerce site. This solution is intended for small shops with few products.
+
+
+##### Database creation
+Set DB parameters on `parameters.yml` and run the commands below from this project root:
+
+```
+php bin/console doctrine:database:create
+```
+
+```
+php bin/console doctrine:schema:update --force
+```
