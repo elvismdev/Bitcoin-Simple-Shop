@@ -10,14 +10,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Product controller.
  *
- * @Route("admin/product")
+ * @Route("product")
  */
 class ProductController extends Controller
 {
     /**
      * Lists all product entities.
      *
-     * @Route("/", name="admin_product_index")
+     * @Route("/", name="product_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -34,7 +34,7 @@ class ProductController extends Controller
     /**
      * Creates a new product entity.
      *
-     * @Route("/new", name="admin_product_new")
+     * @Route("/new", name="product_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -48,7 +48,7 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('admin_product_show', array('slug' => $product->getSlug()));
+            return $this->redirectToRoute('product_show', array('slug' => $product->getSlug()));
         }
 
         return $this->render('product/new.html.twig', array(
@@ -60,7 +60,7 @@ class ProductController extends Controller
     /**
      * Finds and displays a product entity.
      *
-     * @Route("/{slug}", name="admin_product_show")
+     * @Route("/{slug}", name="product_show")
      * @Method("GET")
      */
     public function showAction(Product $product)
@@ -76,7 +76,7 @@ class ProductController extends Controller
     /**
      * Displays a form to edit an existing product entity.
      *
-     * @Route("/{id}/edit", name="admin_product_edit")
+     * @Route("/{id}/edit", name="product_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Product $product)
@@ -88,7 +88,7 @@ class ProductController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_product_edit', array('id' => $product->getId()));
+            return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
         }
 
         return $this->render('product/edit.html.twig', array(
@@ -101,7 +101,7 @@ class ProductController extends Controller
     /**
      * Deletes a product entity.
      *
-     * @Route("/{id}", name="admin_product_delete")
+     * @Route("/{id}", name="product_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Product $product)
@@ -115,7 +115,7 @@ class ProductController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_product_index');
+        return $this->redirectToRoute('product_index');
     }
 
     /**
@@ -128,7 +128,7 @@ class ProductController extends Controller
     private function createDeleteForm(Product $product)
     {
         return $this->createFormBuilder()
-        ->setAction($this->generateUrl('admin_product_delete', array('id' => $product->getId())))
+        ->setAction($this->generateUrl('product_delete', array('id' => $product->getId())))
         ->setMethod('DELETE')
         ->getForm()
         ;
