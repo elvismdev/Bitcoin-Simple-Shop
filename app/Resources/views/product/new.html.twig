@@ -39,6 +39,8 @@
                             </div>
                             <button type="submit" class="btn btn-primary pull-right">Create</button>
                             <div class="clearfix"></div>
+                            {# Token CSRF #}
+                            {{ form_widget( form._token ) }}
                             {{ form_end(form, {'render_rest': false}) }}
                         </div>
                     </div>
