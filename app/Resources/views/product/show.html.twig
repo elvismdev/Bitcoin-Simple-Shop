@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="content">
-        <div class="container-fluid">
+	<div class="content">
+		<div class="container-fluid">
 
-            {% include 'components/product-detail.twig' %}
+			{% include 'components/product-detail.twig' %}
 
-            {% include 'components/products-back.twig' %}
+			<div><a href="{{ path('homepage') }}"><i class="material-icons">keyboard_arrow_left</i>Back to store homepage</a></div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 {% endblock %}

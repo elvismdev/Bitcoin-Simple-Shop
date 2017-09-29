@@ -4,137 +4,31 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="product">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange">
-                                <i class="material-icons">camera_alt</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">Product A</p>
-                                <h3 class="title">50
-                                    <small>BTC</small>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">add_shopping_cart</i>
-                                    <a href="#pablo">Add to cart</a>
+                {% for product in products %}
+                    <div class="product">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <a href="{{ path('product_show', { 'slug': product.slug }) }}">
+                                    <div class="card-header" data-background-color="orange">
+                                        <i class="material-icons">camera_alt</i>
+                                    </div>
+                                </a>
+                                <div class="card-content">
+                                    <p class="category"><a href="{{ path('product_show', { 'slug': product.slug }) }}">{{ product.title }}</a></p>
+                                    <h3 class="title">${{ product.price }}
+                                        <small>USD</small>
+                                    </h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">add_shopping_cart</i>
+                                        <a href="#pablo">Buy Now</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="product">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange">
-                                <i class="material-icons">camera_alt</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">Product B</p>
-                                <h3 class="title">76
-                                    <small>BTC</small>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">add_shopping_cart</i>
-                                    <a href="#pablo">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange">
-                                <i class="material-icons">camera_alt</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">Product C</p>
-                                <h3 class="title">19000
-                                    <small>BTC</small>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">add_shopping_cart</i>
-                                    <a href="#pablo">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange">
-                                <i class="material-icons">camera_alt</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">Product D</p>
-                                <h3 class="title">12
-                                    <small>BTC</small>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">add_shopping_cart</i>
-                                    <a href="#pablo">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange">
-                                <i class="material-icons">camera_alt</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">Product E</p>
-                                <h3 class="title">2345
-                                    <small>BTC</small>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">add_shopping_cart</i>
-                                    <a href="#pablo">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange">
-                                <i class="material-icons">camera_alt</i>
-                            </div>
-                            <div class="card-content">
-                                <p class="category">Product F</p>
-                                <h3 class="title">566
-                                    <small>BTC</small>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">add_shopping_cart</i>
-                                    <a href="#pablo">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+                {% endfor %} 
             </div>
         </div>
     </div>
