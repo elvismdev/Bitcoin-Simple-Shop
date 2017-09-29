@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="card">
+                        <div class="card-header" data-background-color="purple">
+                            <h4 class="title">Product Edit</h4>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start(edit_form) }}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.title, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.title ) }}
+                                        {{ form_widget( edit_form.title, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.price, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.price ) }}
+                                        {{ form_widget( edit_form.price, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.body, 'Description', {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.body ) }}
+                                        {{ form_widget( edit_form.body, {'attr': {'class': 'form-control', 'rows': 5}} ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-right">Update</button>
+                            <div class="clearfix"></div>
+                            {# Token CSRF #}
+                            {{ form_widget( edit_form._token ) }}
+                            {{ form_end(edit_form, {'render_rest': false}) }}
+                        </div>
+                    </div>
+
+                    {% include 'components/products-back.twig' %}
+
+                    <div>
+                        {{ form_start(delete_form) }}
+                        <button type="submit" class="btn btn-danger pull-right">Delete</button>
+                        {{ form_end(delete_form) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

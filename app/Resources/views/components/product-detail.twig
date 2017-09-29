@@ -1,0 +1,32 @@
+<section id="productDetails">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="h2-responsive center-on-small-only product-name"><strong>{{ product.title }}</strong></h2>
+            <h4 class="h4-responsive center-on-small-only">
+                <span class="green-text product-price"><strong><i class="fa fa-btc"></i>{{ product.btc_price|number_format(4) }}</strong></span>
+                <span class="grey-text product-bitcoin-price"><small>${{ product.price }}</small></span>
+            </h4>
+
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h5 class="title">
+                        Description
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {{ product.body }}
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 center-on-small-only text-md-right">
+                        <button class="btn btn-primary waves-effect waves-light pull-right"><i class="fa fa-cart-plus" aria-hidden="true"></i> Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
