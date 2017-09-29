@@ -48,7 +48,7 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('admin_product_show', array('id' => $product->getId()));
+            return $this->redirectToRoute('admin_product_show', array('slug' => $product->getSlug()));
         }
 
         return $this->render('product/new.html.twig', array(
@@ -60,7 +60,7 @@ class ProductController extends Controller
     /**
      * Finds and displays a product entity.
      *
-     * @Route("/{id}", name="admin_product_show")
+     * @Route("/{slug}", name="admin_product_show")
      * @Method("GET")
      */
     public function showAction(Product $product)
@@ -128,9 +128,9 @@ class ProductController extends Controller
     private function createDeleteForm(Product $product)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_product_delete', array('id' => $product->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+        ->setAction($this->generateUrl('admin_product_delete', array('id' => $product->getId())))
+        ->setMethod('DELETE')
+        ->getForm()
         ;
     }
 }

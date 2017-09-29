@@ -25,15 +25,15 @@
                                 <tbody>
                                     {% for product in products %}
                                         <tr>
-                                            <td><a href="{{ path('admin_product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
-                                            <td><a href="{{ path('admin_product_show', { 'id': product.id }) }}">{{ product.title }}</a></td>
+                                            <td>{{ product.id }}</td>
+                                            <td><a href="{{ path('admin_product_show', { 'slug': product.slug }) }}">{{ product.title }}</a></td>
                                             <td class="text-primary">${{ product.price }}</td>
                                             <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if product.createdAt %}{{ product.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td class="actions">
                                                 <ul>
                                                     <li>
-                                                        <a href="{{ path('admin_product_show', { 'id': product.id }) }}"><i class="material-icons">remove_red_eye</i> Show</a>
+                                                        <a href="{{ path('admin_product_show', { 'slug': product.slug }) }}"><i class="material-icons">remove_red_eye</i> Show</a>
                                                     </li>
                                                     <li>
                                                         <a href="{{ path('admin_product_edit', { 'id': product.id }) }}"><i class="material-icons">mode_edit</i> Edit</a>
