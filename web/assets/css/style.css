@@ -6,3 +6,8 @@
 .btn.btn-primary a {
 	color: #fff;
 }
+
+td.actions ul {
+	list-style-type: none;
+	padding-left: 0;
+}
