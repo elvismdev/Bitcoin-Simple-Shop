@@ -65,6 +65,14 @@ class ProductController extends Controller
      */
     public function showAction(Product $product)
     {
+
+        $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
+        $endpointToBTC .= $product->getPrice();
+        $response = \Requests::get( $endpointToBTC );
+        // Store Bitcoin price in Product.
+        $product->btc_price = $response->body;
+
+
         $deleteForm = $this->createDeleteForm($product);
 
         return $this->render('product/show.html.twig', array(

@@ -3,8 +3,8 @@
         <div class="col-lg-6">
             <h2 class="h2-responsive center-on-small-only product-name"><strong>{{ product.title }}</strong></h2>
             <h4 class="h4-responsive center-on-small-only">
-                <span class="green-text product-price"><strong>${{ product.price }}</strong></span>
-                <span class="grey-text product-bitcoin-price"><small><i class="fa fa-btc"></i>89</small></span>
+                <span class="green-text product-price"><strong><i class="fa fa-btc"></i>{{ product.btc_price|number_format(4) }}</strong></span>
+                <span class="grey-text product-bitcoin-price"><small>${{ product.price }}</small></span>
             </h4>
 
             <div class="card">
