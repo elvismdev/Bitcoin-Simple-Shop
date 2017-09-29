@@ -59,6 +59,12 @@ class Product
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(name="slug", unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
+
 
     /**
      * Get id
@@ -188,6 +194,26 @@ class Product
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     *
+     * @return self
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
 
