@@ -7,7 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    tobtc_endpoint: https://blockchain.info/tobtc?currency=USD&value=
+    tobtc_endpoint: https://apiv2.bitcoinaverage.com/convert/global?from=USD&to=BTC&amount=
 
 framework:
     #esi: ~
