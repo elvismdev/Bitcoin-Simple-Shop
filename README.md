@@ -1,6 +1,6 @@
 # Bitcoin E-Commerce Store
 
-*Basic example of a Bitcoin ecommerce site. This solution is intended for small shops with few products.*
+*Proof of concept for a Bitcoin ecommerce site. This project is intended for small shops with few products.*
 
 
 ##### Database creation
