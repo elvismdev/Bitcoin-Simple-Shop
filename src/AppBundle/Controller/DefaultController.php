@@ -31,6 +31,7 @@ class DefaultController extends Controller
     public function checkoutAction()
     {
         return $this->render('default/checkout.html.twig', array(
+            'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint')
         ));
     }
 

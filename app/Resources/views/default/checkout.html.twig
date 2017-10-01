@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
+{% set product = app.session.get('product') %}
 
-{% block body %}
-	{% set product = app.session.get('product') %}
+	{% block body %}
 		<div class="content">
 			<div class="container-fluid">
-				{% set product = app.session.get('product') %}
-					<h3>{{ product.title }}</h3>
+				<div class="row">
+					<div class="col-lg-6">
+
+						<h2 class="h2-responsive center-on-small-only product-name"><strong>{{ product.title }}</strong> - <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"></span></strong></span>
+							<span class="grey-text product-price"><small>${{ product.price }}</small></span></h2>
+
+							CHECKOUT FORM GOES HERE
+
+						</div>
+					</div>
 
 					<div><a href="{{ path('homepage') }}"><i class="material-icons">keyboard_arrow_left</i>Back to store homepage</a></div>
 
