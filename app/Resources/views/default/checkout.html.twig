@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% set product = app.session.get('product') %}
+		<div class="content">
+			<div class="container-fluid">
+				{% set product = app.session.get('product') %}
+					<h3>{{ product.title }}</h3>
+
+					<div><a href="{{ path('homepage') }}"><i class="material-icons">keyboard_arrow_left</i>Back to store homepage</a></div>
+
+				</div>
+			</div>
+		{% endblock %}

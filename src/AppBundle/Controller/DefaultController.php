@@ -21,4 +21,17 @@ class DefaultController extends Controller
             'products' => $products,
         ));
     }
+
+
+    /**
+     * Finds and displays a product entity.
+     *
+     * @Route("/checkout", name="product_checkout")
+     */
+    public function checkoutAction()
+    {
+        return $this->render('default/checkout.html.twig', array(
+        ));
+    }
+
 }

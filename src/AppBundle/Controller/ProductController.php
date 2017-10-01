@@ -63,9 +63,14 @@ class ProductController extends Controller
      * @Route("/{slug}", name="product_show")
      * @Method("GET")
      */
-    public function showAction(Product $product)
+    public function showAction(Product $product, Request $request)
     {
 
+        // Save Product ID in session in case of checkout.
+        $session = $request->getSession();
+        $session->set('product', $product);
+
+        // Convert USD to BTC price.
         $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
         $endpointToBTC .= $product->getPrice();
         $response = \Requests::get( $endpointToBTC );
