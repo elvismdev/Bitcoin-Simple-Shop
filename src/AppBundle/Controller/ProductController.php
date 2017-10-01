@@ -72,12 +72,8 @@ class ProductController extends Controller
         // Store Bitcoin price in Product.
         $product->btc_price = $response->body;
 
-
-        $deleteForm = $this->createDeleteForm($product);
-
         return $this->render('product/show.html.twig', array(
             'product' => $product,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
