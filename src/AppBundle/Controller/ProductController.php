@@ -71,11 +71,11 @@ class ProductController extends Controller
         $session->set('product', $product);
 
         // Convert USD to BTC price.
-        $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
-        $endpointToBTC .= $product->getPrice();
-        $response = \Requests::get( $endpointToBTC );
-        // Store Bitcoin price in Product.
-        $product->btc_price = $response->body;
+        // $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
+        // $endpointToBTC .= $product->getPrice();
+        // $response = \Requests::get( $endpointToBTC );
+        // // Store Bitcoin price in Product.
+        // $product->btc_price = $response->body;
 
         return $this->render('product/show.html.twig', array(
             'product' => $product,

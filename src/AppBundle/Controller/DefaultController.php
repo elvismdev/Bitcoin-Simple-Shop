@@ -34,4 +34,13 @@ class DefaultController extends Controller
         ));
     }
 
+
+    public function toBTC( $usd_price ) {
+        $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
+        $endpointToBTC .= $usd_price;
+        $response = \Requests::get( $endpointToBTC );
+        // Store Bitcoin price in Product.
+        return $response->body;
+    }
+
 }
