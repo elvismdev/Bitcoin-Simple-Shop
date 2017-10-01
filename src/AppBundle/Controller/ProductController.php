@@ -58,29 +58,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Finds and displays a product entity.
-     *
-     * @Route("/{slug}/{quick_checkout}", name="product_show", defaults={"quick_checkout" = 0})
-     * @Method("GET")
-     */
-    public function showAction(Product $product, Request $request)
-    {
-
-        // Save Product ID in session in case of checkout.
-        $session = $request->getSession();
-        $session->set('product', $product);
-
-        // If quick checkout, redirect to checkout.
-        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'product_checkout' );
-
-        // Or redirect to product detail page.
-        return $this->render('product/show.html.twig', array(
-            'product' => $product,
-            'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint')
-        ));
-    }
-
-    /**
      * Displays a form to edit an existing product entity.
      *
      * @Route("/{id}/edit", name="product_edit")
@@ -102,6 +79,29 @@ class ProductController extends Controller
             'product' => $product,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a product entity.
+     *
+     * @Route("/{slug}/{quick_checkout}", name="product_show", defaults={"quick_checkout" = 0})
+     * @Method("GET")
+     */
+    public function showAction(Product $product, Request $request)
+    {
+
+        // Save Product ID in session in case of checkout.
+        $session = $request->getSession();
+        $session->set('product', $product);
+
+        // If quick checkout, redirect to checkout.
+        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'product_checkout' );
+
+        // Or redirect to product detail page.
+        return $this->render('product/show.html.twig', array(
+            'product' => $product,
+            'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint')
         ));
     }
 
