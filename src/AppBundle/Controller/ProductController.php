@@ -60,7 +60,7 @@ class ProductController extends Controller
     /**
      * Finds and displays a product entity.
      *
-     * @Route("/{slug}", name="product_show")
+     * @Route("/{slug}/{quick_checkout}", name="product_show", defaults={"quick_checkout" = 0})
      * @Method("GET")
      */
     public function showAction(Product $product, Request $request)
@@ -70,6 +70,10 @@ class ProductController extends Controller
         $session = $request->getSession();
         $session->set('product', $product);
 
+        // If quick checkout, redirect to checkout.
+        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'product_checkout' );
+
+        // Or redirect to product detail page.
         return $this->render('product/show.html.twig', array(
             'product' => $product,
             'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint')
