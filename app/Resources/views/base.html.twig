@@ -32,7 +32,7 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     {% set route = app.request.get('_route') %}
-                        <li class="{{ route in ['homepage', 'product_show', 'checkout'] ? 'active' }}">
+                        <li class="{{ route in ['homepage', 'product_show', 'checkout', 'order_pay', 'shoporder_edit'] ? 'active' }}">
                             <a href="{{ path('homepage') }}">
                                 <i class="material-icons">store</i>
                                 <p>Store</p>
