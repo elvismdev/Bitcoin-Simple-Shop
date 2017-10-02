@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\ShopOrder;
+use AppBundle\Service\BlockchainDotInfoService;
 
 class DefaultController extends Controller
 {
@@ -31,7 +32,7 @@ class DefaultController extends Controller
      * @Route("/checkout", name="checkout")
      * @Method({"GET", "POST"})
      */
-    public function checkoutAction(Request $request)
+    public function checkoutAction(Request $request, BlockchainDotInfoService $blockchainInfo)
     {
         // Get product in session, if any.
         $session = $request->getSession();
@@ -57,10 +58,11 @@ class DefaultController extends Controller
 
             // Set some other order info.
             $shopOrder->setProduct( $product );
+            $shopOrder->setOrderPaid( false );
             $shopOrder->setOrderStatus( 'pending_payment' );
             $shopOrder->setOrderTotalUsd( $product->getPrice() );
             // Set final total in BTC for this order.
-            $totalBTC = $this->toBTC( $product->getPrice() );
+            $totalBTC = $blockchainInfo->toBTC( $product->getPrice() );
             $shopOrder->setOrderTotalBtc( $totalBTC );
 
             $em = $this->getDoctrine()->getManager();
@@ -88,19 +90,6 @@ class DefaultController extends Controller
         return $this->render('default/order_pay.html.twig', array(
             'shopOrder' => $shopOrder
         ));
-    }
-
-
-    /**
-     * Converts from USD to BTC.
-     *
-     */
-    public function toBTC( $usd_price ) {
-        $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
-        $endpointToBTC .= $usd_price;
-        $response = \Requests::get( $endpointToBTC );
-        // Return current Bitcoin price for Product.
-        return $response->body;
     }
 
 }

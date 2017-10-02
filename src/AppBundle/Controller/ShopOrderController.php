@@ -6,6 +6,7 @@ use AppBundle\Entity\ShopOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Service\BlockchainDotInfoService;
 
 /**
  * Shoporder controller.
@@ -79,12 +80,15 @@ class ShopOrderController extends Controller
      * @Route("/{id}/edit", name="shoporder_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, ShopOrder $shopOrder)
+    public function editAction(Request $request, ShopOrder $shopOrder, BlockchainDotInfoService $blockchainInfo)
     {
+
+        // Get Product object from order.
+        $product = $shopOrder->getProduct();
 
         // Save product in session.
         $session = $request->getSession();
-        $session->set('product', $shopOrder->getProduct());
+        $session->set('product', $product);
 
         // Create edit page forms.
         $deleteForm = $this->createDeleteForm($shopOrder);
@@ -92,9 +96,13 @@ class ShopOrderController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            // Update the total in BTC for this order.
+            $totalBTC = $blockchainInfo->toBTC( $product->getPrice() );
+            $shopOrder->setOrderTotalBtc( $totalBTC );
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('shoporder_edit', array('id' => $shopOrder->getId()));
+            return $this->redirectToRoute('order_pay', array('id' => $shopOrder->getId()));
         }
 
         return $this->render('shoporder/edit.html.twig', array(
