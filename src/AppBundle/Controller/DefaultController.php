@@ -36,6 +36,7 @@ class DefaultController extends Controller
         // Get product in session, if any.
         $session = $request->getSession();
         $product = $session->get( 'product' );
+
         // If no product in session.
         if ( !$product ) {
             $this->addFlash(
@@ -54,6 +55,7 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Set some other order info.
             $shopOrder->setProduct( $product );
             $shopOrder->setOrderStatus( 'pending_payment' );
             $shopOrder->setOrderTotalUsd( $product->getPrice() );
