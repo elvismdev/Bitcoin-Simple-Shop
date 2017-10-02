@@ -27,3 +27,7 @@ td.actions ul {
 #productDetails .card-body {
 	padding: 15px;
 }
+
+.order-id small {
+	font-size: 40%;
+}

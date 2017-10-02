@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <h2 class="h2-responsive center-on-small-only product-name">
+                        <strong>{{ shopOrder.product.title }}</strong> - <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span> <span class="grey-text product-price"><small>${{ shopOrder.product.price }}</small></span>
+                    </h2>
+
+                    <div class="card">
+                        <div class="card-header" data-background-color="purple">
+                            <h4 class="title">Edit Order</h4>
+                        </div>
+                        <div class="card-content">
+                            {{ form_start( edit_form ) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.email, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.email ) }}
+                                        {{ form_widget( edit_form.email, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.name, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.name ) }}
+                                        {{ form_widget( edit_form.name, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.lastName, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.lastName ) }}
+                                        {{ form_widget( edit_form.lastName, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.address, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.address ) }}
+                                        {{ form_widget( edit_form.address, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.address2, 'Apt/Suite (optional)', {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.address2 ) }}
+                                        {{ form_widget( edit_form.address2, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.city, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.city ) }}
+                                        {{ form_widget( edit_form.city, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.state, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.state ) }}
+                                        {{ form_widget( edit_form.state, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.zip, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.zip ) }}
+                                        {{ form_widget( edit_form.zip, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-floating is-empty">
+                                        {{ form_label( edit_form.country, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                        {{ form_errors( edit_form.country ) }}
+                                        {{ form_widget( edit_form.country, {'attr': {'class': 'form-control'}} ) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-right">Pay</button>
+                            <div class="clearfix"></div>
+                            {# Token CSRF #}
+                            {{ form_widget( edit_form._token ) }}
+                            {{ form_end( edit_form ) }}
+                        </div>
+                    </div>
+
+                    {# If order hasn't been paid yet, show retire order button for users #}
+                    {% if shopOrder.orderPaid == false %}
+                        <div>
+                            {{ form_start(delete_form) }}
+                            <button type="submit" class="btn btn-danger">Retire Order</button>
+                            {{ form_end(delete_form) }}
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

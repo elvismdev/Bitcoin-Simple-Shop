@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Shoporder</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ shopOrder.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ shopOrder.email }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ shopOrder.name }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ shopOrder.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ shopOrder.address }}</td>
+            </tr>
+            <tr>
+                <th>Address2</th>
+                <td>{{ shopOrder.address2 }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ shopOrder.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ shopOrder.state }}</td>
+            </tr>
+            <tr>
+                <th>Zip</th>
+                <td>{{ shopOrder.zip }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ shopOrder.country }}</td>
+            </tr>
+            <tr>
+                <th>Product</th>
+                <td>{{ shopOrder.product.title }}</td>
+            </tr>
+            <tr>
+                <th>Ordertotalbtc</th>
+                <td>{{ shopOrder.orderTotalBtc }}</td>
+            </tr>
+            <tr>
+                <th>Ordertotalusd</th>
+                <td>{{ shopOrder.orderTotalUsd }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if shopOrder.createdAt %}{{ shopOrder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if shopOrder.updatedAt %}{{ shopOrder.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Orderpaid</th>
+                <td>{% if shopOrder.orderPaid %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Orderstatus</th>
+                <td>{{ shopOrder.orderStatus }}</td>
+            </tr>
+            <tr>
+                <th>Amountpaid</th>
+                <td>{{ shopOrder.amountPaid }}</td>
+            </tr>
+            <tr>
+                <th>Difference</th>
+                <td>{{ shopOrder.difference }}</td>
+            </tr>
+            <tr>
+                <th>Transactionhash</th>
+                <td>{{ shopOrder.transactionHash }}</td>
+            </tr>
+            <tr>
+                <th>Btcaddressid</th>
+                <td>{{ shopOrder.btcAddressId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shoporder_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('shoporder_edit', { 'id': shopOrder.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
