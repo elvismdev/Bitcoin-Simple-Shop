@@ -91,7 +91,7 @@ class ProductController extends Controller
     public function showAction(Product $product, Request $request)
     {
 
-        // Save Product ID in session in case of checkout.
+        // Save Product in session in case of checkout.
         $session = $request->getSession();
         $session->set('product', $product);
 

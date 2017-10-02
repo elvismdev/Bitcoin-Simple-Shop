@@ -81,6 +81,12 @@ class ShopOrderController extends Controller
      */
     public function editAction(Request $request, ShopOrder $shopOrder)
     {
+
+        // Save product in session.
+        $session = $request->getSession();
+        $session->set('product', $shopOrder->getProduct());
+
+        // Create edit page forms.
         $deleteForm = $this->createDeleteForm($shopOrder);
         $editForm = $this->createForm('AppBundle\Form\ShopOrderType', $shopOrder);
         $editForm->handleRequest($request);
@@ -95,6 +101,7 @@ class ShopOrderController extends Controller
             'shopOrder' => $shopOrder,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint')
         ));
     }
 
@@ -128,9 +135,9 @@ class ShopOrderController extends Controller
     private function createDeleteForm(ShopOrder $shopOrder)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('shoporder_delete', array('id' => $shopOrder->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+        ->setAction($this->generateUrl('shoporder_delete', array('id' => $shopOrder->getId())))
+        ->setMethod('DELETE')
+        ->getForm()
         ;
     }
 }

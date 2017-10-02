@@ -86,7 +86,7 @@
         <script type="text/javascript">
 
         {# JS to fetch the bitcoin value converted from dollar amount #}        
-        {% if app.request.get('_route') in ['product_show', 'checkout'] %}
+        {% if app.request.get('_route') in ['product_show', 'checkout', 'shoporder_edit'] %}
 
 
         // async function
@@ -97,6 +97,9 @@
             let data = await response.json();
             return data;
         }
+
+        // Set the product from the session.
+        {% set product = app.session.get('product') %}
 
         // Get and display Bitcoin Price.
         let bitcoinPrice = document.getElementById('bitcoin-price');
