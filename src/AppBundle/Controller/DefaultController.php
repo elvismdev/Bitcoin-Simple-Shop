@@ -26,7 +26,7 @@ class DefaultController extends Controller
 
 
     /**
-     * Finds and displays a product entity.
+     * Do the checkout, sets an order.
      *
      * @Route("/checkout", name="checkout")
      * @Method({"GET", "POST"})
@@ -67,17 +67,34 @@ class DefaultController extends Controller
             $em->persist($shopOrder);
             $em->flush();
 
-            return $this->redirectToRoute('shoporder_show', array('id' => $shopOrder->getId()));
+            return $this->redirectToRoute('order_pay', array('id' => $shopOrder->getId()));
         }
 
         return $this->render('default/checkout.html.twig', array(
             'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint'),
-            'shopOrder' => $shopOrder,
             'checkout_form' => $form->createView(),
         ));
     }
 
 
+    /**
+     * Pay for the order.
+     *
+     * @Route("/pay/{id}", name="order_pay")
+     * @Method("GET")
+     */
+    public function payAction( ShopOrder $shopOrder ) {
+
+        return $this->render('default/order_pay.html.twig', array(
+            'shopOrder' => $shopOrder
+        ));
+    }
+
+
+    /**
+     * Converts from USD to BTC.
+     *
+     */
     public function toBTC( $usd_price ) {
         $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
         $endpointToBTC .= $usd_price;
