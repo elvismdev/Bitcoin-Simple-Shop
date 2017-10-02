@@ -1,7 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Shoporder Pay</h1>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <h2 class="h2-responsive center-on-small-only product-name">
+                        <strong>{{ shopOrder.product.title }}</strong> <span class="grey-text order-id"><small>Order ID: {{ shopOrder.id }}</small></span>
+                    </h2>
+
+                    <div class="card">
+                        <div class="card-header" data-background-color="purple">
+                            <h4 class="title">Order Paywall</h4>
+                        </div>
+                        <div class="card-content">
+
+                            <h3 class="btc-due"><strong>Amount Due:  <i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc|number_format(4) }}</strong></h3>
+                            <p>Send payment to the below address to complete your order.</p>
+
+                            <div class="qr-code">
+                                QR CODE HERE
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {# <h1>Shoporder Pay</h1>
 
     <table>
         <tbody>
@@ -90,7 +122,7 @@
                 <td>{{ shopOrder.btcAddressId }}</td>
             </tr>
         </tbody>
-    </table>
+    </table> #}
 
     <ul>
         <li>
