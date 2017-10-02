@@ -28,8 +28,20 @@ class DefaultController extends Controller
      *
      * @Route("/checkout", name="checkout")
      */
-    public function checkoutAction()
+    public function checkoutAction(Request $request)
     {
+
+        // If no product in session.
+        $session = $request->getSession();
+        if ( !$session->get( 'product' ) ) {
+            $this->addFlash(
+                'notice',
+                'No product chosen to buy yet!'
+            );
+
+            return $this->redirectToRoute( 'homepage' );
+        }
+
         return $this->render('default/checkout.html.twig', array(
             'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint')
         ));

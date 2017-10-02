@@ -81,10 +81,13 @@
         <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/assets/js/material.min.js" type="text/javascript"></script>
         <script src="/assets/js/material-dashboard.js?v=1.2.0"></script>
+        <script src="/assets/js/bootstrap-notify.js"></script>
+
+        <script type="text/javascript">
 
         {# JS to fetch the bitcoin value converted from dollar amount #}        
         {% if app.request.get('_route') in ['product_show', 'checkout'] %}
-            <script type="text/javascript">
+
 
         // async function
         async function fetchAsync (endpoint) {
@@ -106,10 +109,31 @@
             console.log(error);
         });
 
+
+        
+
+        {% endif %}
+
+
+        // Output Flashbag messages.
+        {% for message in app.flashes('notice') %}
+        $.notify({
+            icon: "info",
+            message: "{{ message }}"
+
+        }, {
+            type: 'warning',
+            timer: 4000,
+            placement: {
+                from: 'top',
+                align: 'right'
+            }
+        });
+        {% endfor %}
+
+
         </script>
 
-    {% endif %}
 
-
-{% endblock %}
-</html>
+    {% endblock %}
+    </html>
