@@ -130,7 +130,13 @@ class ShopOrderController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('shoporder_index');
+
+        $this->addFlash(
+            'notice',
+            'Your order has been canceled!'
+        );
+
+        return $this->redirectToRoute('homepage');
     }
 
     /**
