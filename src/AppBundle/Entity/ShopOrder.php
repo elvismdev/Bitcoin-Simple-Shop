@@ -139,14 +139,14 @@ class ShopOrder
     /**
      * @var float
      *
-     * @ORM\Column(name="amount_paid", type="float")
+     * @ORM\Column(name="amount_paid", type="float", nullable=true)
      */
     private $amountPaid;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="difference", type="string", length=255)
+     * @ORM\Column(name="difference", type="string", length=255, nullable=true)
      */
     private $difference;
 

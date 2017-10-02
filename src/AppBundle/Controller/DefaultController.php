@@ -45,21 +45,22 @@ class DefaultController extends Controller
 
             return $this->redirectToRoute( 'homepage' );
         }
-        
+
 
         // Create a new shop order form.
         $shopOrder = new Shoporder();
-        // Prepopulate some fields on the order object.
-        $shopOrder->setProduct( $product );
-        $shopOrder->setOrderTotalUsd( $product->getPrice() );
-        $shopOrder->setOrderPaid( false );
-        $shopOrder->setOrderStatus( 'pending_payment' );
-
-        // Create form for the user to fill in his order info.
         $form = $this->createForm('AppBundle\Form\ShopOrderType', $shopOrder);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $shopOrder->setProduct( $product );
+            $shopOrder->setOrderStatus( 'pending_payment' );
+            $shopOrder->setOrderTotalUsd( $product->getPrice() );
+            // Set final total in BTC for this order.
+            $totalBTC = $this->toBTC( $product->getPrice() );
+            $shopOrder->setOrderTotalBtc( $totalBTC );
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($shopOrder);
             $em->flush();
@@ -79,7 +80,7 @@ class DefaultController extends Controller
         $endpointToBTC = $this->container->getParameter('tobtc_endpoint');
         $endpointToBTC .= $usd_price;
         $response = \Requests::get( $endpointToBTC );
-        // Store Bitcoin price in Product.
+        // Return current Bitcoin price for Product.
         return $response->body;
     }
 
