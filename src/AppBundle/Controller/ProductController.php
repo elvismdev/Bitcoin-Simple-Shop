@@ -96,7 +96,7 @@ class ProductController extends Controller
         $session->set('product', $product);
 
         // If quick checkout, redirect to checkout.
-        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'product_checkout' );
+        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'checkout' );
 
         // Or redirect to product detail page.
         return $this->render('product/show.html.twig', array(

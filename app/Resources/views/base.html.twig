@@ -32,13 +32,13 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     {% set route = app.request.get('_route') %}
-                        <li class="{{ 'homepage' in route ? 'active' }}">
+                        <li class="{{ route in ['homepage', 'product_show', 'checkout'] ? 'active' }}">
                             <a href="{{ path('homepage') }}">
                                 <i class="material-icons">store</i>
                                 <p>Store</p>
                             </a>
                         </li>
-                        <li class="{{ route in ['product_index', 'product_new'] ? 'active' }}">
+                        <li class="{{ route in ['product_index', 'product_new', 'product_edit'] ? 'active' }}">
                             <a href="{{ path('product_index') }}">
                                 <i class="material-icons">local_offer</i>
                                 <p>Manage Products</p>
@@ -83,7 +83,7 @@
         <script src="/assets/js/material-dashboard.js?v=1.2.0"></script>
 
         {# JS to fetch the bitcoin value converted from dollar amount #}        
-        {% if app.request.get('_route') in ['product_show', 'product_checkout'] %}
+        {% if app.request.get('_route') in ['product_show', 'checkout'] %}
             <script type="text/javascript">
 
         // async function

@@ -26,7 +26,7 @@ class DefaultController extends Controller
     /**
      * Finds and displays a product entity.
      *
-     * @Route("/checkout", name="product_checkout")
+     * @Route("/checkout", name="checkout")
      */
     public function checkoutAction()
     {
