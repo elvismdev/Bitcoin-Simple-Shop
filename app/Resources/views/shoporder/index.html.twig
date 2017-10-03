@@ -31,41 +31,41 @@
             </tr>
         </thead>
         <tbody>
-        {% for shopOrder in shopOrders %}
-            <tr>
-                <td><a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">{{ shopOrder.id }}</a></td>
-                <td>{{ shopOrder.email }}</td>
-                <td>{{ shopOrder.name }}</td>
-                <td>{{ shopOrder.lastName }}</td>
-                <td>{{ shopOrder.address }}</td>
-                <td>{{ shopOrder.address2 }}</td>
-                <td>{{ shopOrder.city }}</td>
-                <td>{{ shopOrder.state }}</td>
-                <td>{{ shopOrder.zip }}</td>
-                <td>{{ shopOrder.country }}</td>
-                <td>{{ shopOrder.product }}</td>
-                <td>{{ shopOrder.orderTotalBtc }}</td>
-                <td>{{ shopOrder.orderTotalUsd }}</td>
-                <td>{% if shopOrder.createdAt %}{{ shopOrder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if shopOrder.updatedAt %}{{ shopOrder.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if shopOrder.orderPaid %}Yes{% else %}No{% endif %}</td>
-                <td>{{ shopOrder.orderStatus }}</td>
-                <td>{{ shopOrder.amountPaid }}</td>
-                <td>{{ shopOrder.difference }}</td>
-                <td>{{ shopOrder.transactionHash }}</td>
-                <td>{{ shopOrder.btcAddressId }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('shoporder_edit', { 'id': shopOrder.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for shopOrder in shopOrders %}
+                <tr>
+                    <td><a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">{{ shopOrder.id }}</a></td>
+                    <td>{{ shopOrder.email }}</td>
+                    <td>{{ shopOrder.name }}</td>
+                    <td>{{ shopOrder.lastName }}</td>
+                    <td>{{ shopOrder.address }}</td>
+                    <td>{{ shopOrder.address2 }}</td>
+                    <td>{{ shopOrder.city }}</td>
+                    <td>{{ shopOrder.state }}</td>
+                    <td>{{ shopOrder.zip }}</td>
+                    <td>{{ shopOrder.country }}</td>
+                    <td>{{ shopOrder.product.title }}</td>
+                    <td>{{ shopOrder.orderTotalBtc }}</td>
+                    <td>{{ shopOrder.orderTotalUsd }}</td>
+                    <td>{% if shopOrder.createdAt %}{{ shopOrder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if shopOrder.updatedAt %}{{ shopOrder.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if shopOrder.orderPaid %}Yes{% else %}No{% endif %}</td>
+                    <td>{{ shopOrder.orderStatus }}</td>
+                    <td>{{ shopOrder.amountPaid }}</td>
+                    <td>{{ shopOrder.difference }}</td>
+                    <td>{{ shopOrder.transactionHash }}</td>
+                    <td>{{ shopOrder.btcAddressId }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('shoporder_edit', { 'id': shopOrder.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
