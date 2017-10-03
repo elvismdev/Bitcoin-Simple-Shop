@@ -27,7 +27,7 @@
                                         <tr>
                                             <td>{{ product.id }}</td>
                                             <td><a href="{{ path('product_show', { 'slug': product.slug }) }}">{{ product.title }}</a></td>
-                                            <td class="text-primary">${{ product.price }}</td>
+                                            <td class="text-primary"><i class="fa fa-usd"></i>{{ product.price }}</td>
                                             <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if product.createdAt %}{{ product.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td class="actions">

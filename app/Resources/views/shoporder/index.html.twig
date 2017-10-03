@@ -36,8 +36,8 @@
                                             <td>{{ shopOrder.email }}</td>
                                             <td>{{ shopOrder.name }} {{ shopOrder.lastName }}</td>
                                             <td><a href="{{ path('product_show', { 'slug': shopOrder.product.slug }) }}">{{ shopOrder.product.title }}</a></td>
-                                            <td>{{ shopOrder.orderTotalBtc }}</td>
-                                            <td>{{ shopOrder.orderTotalUsd }}</td>
+                                            <td><i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc }}</td>
+                                            <td><i class="fa fa-usd"></i>{{ shopOrder.orderTotalUsd }}</td>
                                             <td>{% if shopOrder.orderPaid %}Yes{% else %}No{% endif %}</td>
                                             <td>{% if shopOrder.createdAt %}{{ shopOrder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if shopOrder.updatedAt %}{{ shopOrder.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
