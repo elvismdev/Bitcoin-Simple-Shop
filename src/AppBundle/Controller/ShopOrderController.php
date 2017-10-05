@@ -136,13 +136,11 @@ class ShopOrderController extends Controller
             'Order has been removed!'
         );
 
-        $path = $this->getRefererPath($request);
-
-        print_r($path);
-        die();
-
+        
         // If deleted from admin, redirect to orders lists.
-        if ( $request->get( 'admin_delete_order' ) == 1 ) return $this->redirectToRoute( 'shoporder_index' );
+        $path = $this->getRefererPath( $request );
+        $regex = '#^/shoporder/(?P<id>[0-9]+)$#';
+        if ( preg_match( $regex, $path ) ) return $this->redirectToRoute( 'shoporder_index' );
 
 
         return $this->redirectToRoute('homepage');
