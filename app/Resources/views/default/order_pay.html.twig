@@ -34,7 +34,12 @@
                             <h3 class="btc-due"><strong>Amount Due:  <i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc|number_format(4) }}</strong></h3>
                             <p>Send payment to the below address to complete your order.</p>
 
-                            <dir class="btc-address"><input type="text" name="btc_address" readonly="readonly" value="{{ pay_to }}"></dir>
+                            <div class="form-group">
+                                <input id="btc-address" type="text" class="form-control text-center" readonly="readonly" value="{{ pay_to }}">
+                                <button class="btn" data-clipboard-target="#btc-address">
+                                    <i class="material-icons">content_copy</i> Copy Address
+                                </button>
+                            </div>
 
                             <div class="qr-code">
                                 <img src="http://chart.googleapis.com/chart?chs=125x125&cht=qr&chl={{ pay_to }}">
@@ -47,4 +52,13 @@
 
         </div>
     </div>
+{% endblock %}
+
+{# Includig Clipboard.js to copy BTC address with <button> element #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var clipboard = new Clipboard('.btn');
+    </script>
 {% endblock %}
