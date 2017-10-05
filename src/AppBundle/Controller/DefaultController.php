@@ -85,10 +85,23 @@ class DefaultController extends Controller
      * @Route("/pay/{id}", name="order_pay")
      * @Method("GET")
      */
-    public function payAction( ShopOrder $shopOrder ) {
+    public function payAction( ShopOrder $shopOrder, Request $request ) {
+        // Get Blockchain.info parameters.
+        $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
+        // Create callback url.
+        $callback_url = $request->getSchemeAndHttpHost() . '/thankyou/' . $shopOrder->getId() . '/' . $blockchainDotInfoParams['secret'];
+        // Set parameters for Blockchain.info address request.
+        $params = 'xpub=' . $blockchainDotInfoParams['xpub'] . '&callback=' . urlencode( $callback_url ) . '&key=' . $blockchainDotInfoParams['api_key'];
+        // Get address to pay from Blockchain.info
+        $response = \Requests::get( $blockchainDotInfoParams['receive_url'] . '?' . $params );
+
+
+        // print_r($response->body);
+        // die();
 
         return $this->render('default/order_pay.html.twig', array(
-            'shopOrder' => $shopOrder
+            'shopOrder' => $shopOrder,
+            'pay_to' => '18iyJANMcUoR4ZZNjv3W6nzvsRaPdw7Ck4'       // To change for API response
         ));
     }
 

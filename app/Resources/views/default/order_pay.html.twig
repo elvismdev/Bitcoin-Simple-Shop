@@ -34,8 +34,10 @@
                             <h3 class="btc-due"><strong>Amount Due:  <i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc|number_format(4) }}</strong></h3>
                             <p>Send payment to the below address to complete your order.</p>
 
+                            <dir class="btc-address"><input type="text" name="btc_address" readonly="readonly" value="{{ pay_to }}"></dir>
+
                             <div class="qr-code">
-                                QR CODE HERE
+                                <img src="http://chart.googleapis.com/chart?chs=125x125&cht=qr&chl={{ pay_to }}">
                             </div>
                         </div>
                     </div>
