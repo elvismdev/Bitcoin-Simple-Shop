@@ -133,8 +133,17 @@ class ShopOrderController extends Controller
 
         $this->addFlash(
             'notice',
-            'Your order has been canceled!'
+            'Order has been removed!'
         );
+
+        $path = $this->getRefererPath($request);
+
+        print_r($path);
+        die();
+
+        // If deleted from admin, redirect to orders lists.
+        if ( $request->get( 'admin_delete_order' ) == 1 ) return $this->redirectToRoute( 'shoporder_index' );
+
 
         return $this->redirectToRoute('homepage');
     }
@@ -154,4 +163,24 @@ class ShopOrderController extends Controller
         ->getForm()
         ;
     }
+
+
+    /**
+     * Get the referer path for a Request.
+     * 
+     * @param object $request
+     * @return string
+     */
+    private function getRefererPath(Request $request = null)
+    {
+        if ($request == null)
+            $request = $this->getRequest();
+
+        //look for the referer route
+        $referer = $request->headers->get('referer');
+        $path = str_replace($request->getSchemeAndHttpHost(), '', $referer);
+
+        return $path;
+    }
+
 }
