@@ -105,4 +105,52 @@ class DefaultController extends Controller
         ));
     }
 
+
+    /**
+     * Callback URL for Blockchain.info
+     *
+     * @Route("/callback/{id}/{secret}", name="payment_callback")
+     * @Method("GET")
+     */
+    public function callbackAction( ShopOrder $shopOrder, Request $request ) {
+        // Get Blockchain.info parameters.
+        $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
+
+        // Verify the secret word.
+        if ( $request->get('secret') != $blockchainDotInfoParams['secret'] ) {
+            die( 'AYE WHATCHA DOIN THERE!?!?!' );
+        } else {
+            // Get and process response data from Blockchain.info
+            $transactionHash    = $request->get('transaction_hash');
+            $address            = $request->get('address');
+            $valueInSatoshi     = $request->get('value');
+            $valueInBTC         = $valueInSatoshi / 100000000;
+
+            // Update order in DB.
+            $shopOrder->setAmountPaid( $valueInBTC );
+            if ( $valueInBTC == $shopOrder->getOrderTotalBtc() ) {
+                $shopOrder->setDifference( 'No Difference' );
+            } else if ( $valueInBTC < $shopOrder->getOrderTotalBtc() ) {
+                $shopOrder->setDifference( 'Underpaid' );
+            } else {
+                $shopOrder->setDifference( 'Overpaid' );
+            }
+            $shopOrder->setTransactionHash( $transactionHash );
+            $shopOrder->setBtcAddressId( $address );
+            $shopOrder->setOrderStatus( 'completed' );
+            $shopOrder->setOrderPaid( true );
+
+            // Call Doctrine Entity Manager to update/persist data in Order.
+            $em = $this->getDoctrine()->getManager();
+            $em->persist( $shopOrder );
+            $em->flush();
+
+
+            // Return *ok* for Blockchain.info
+            return $this->render( 'default/payment_callback.html.twig' );
+        }
+
+        
+    }
+
 }
