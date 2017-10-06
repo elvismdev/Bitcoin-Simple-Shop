@@ -1,4 +1,4 @@
-# Bitcoin E-Commerce Store
+# Bitcoin Simple Shop
 
 *Proof of concept for a Bitcoin only ecommerce site. This project is intended for small shops with few products.*
 

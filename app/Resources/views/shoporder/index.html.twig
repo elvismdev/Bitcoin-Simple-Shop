@@ -1,77 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Shoporders list</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="title">Shop Orders list</h4>
+                    {# <p class="category">Here is a subtitle for this table</p> #}
+                </div>
+                <div class="card-content table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Status</th>
+                                <th>Email</th>
+                                <th>Client Name</th>
+                                <th>Product</th>
+                                <th>Total BTC</th>
+                                <th>Total USD</th>
+                                <th>Paid</th>
+                                <th>Updated At</th>
+                                <th>Created At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shopOrder in shopOrders %}
+                                <tr>
+                                    <td><a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">{{ shopOrder.id }}</a></td>
+                                    <td>{{ shopOrder.orderStatus == 'pending_payment' ? 'Pending Payment' : 'Completed' }}</td>
+                                    <td>{{ shopOrder.email }}</td>
+                                    <td>{{ shopOrder.name }} {{ shopOrder.lastName }}</td>
+                                    <td><a href="{{ path('product_show', { 'slug': shopOrder.product.slug }) }}">{{ shopOrder.product.title }}</a></td>
+                                    <td><i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc }}</td>
+                                    <td><i class="fa fa-usd"></i>{{ shopOrder.orderTotalUsd }}</td>
+                                    <td>{% if shopOrder.orderPaid %}Yes{% else %}No{% endif %}</td>
+                                    <td>{% if shopOrder.createdAt %}{{ shopOrder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if shopOrder.updatedAt %}{{ shopOrder.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td class="actions">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}"><i class="material-icons">remove_red_eye</i> Show</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Address</th>
-                <th>Address2</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip</th>
-                <th>Country</th>
-                <th>Product</th>
-                <th>Ordertotalbtc</th>
-                <th>Ordertotalusd</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Orderpaid</th>
-                <th>Orderstatus</th>
-                <th>Amountpaid</th>
-                <th>Difference</th>
-                <th>Transactionhash</th>
-                <th>Btcaddressid</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for shopOrder in shopOrders %}
-            <tr>
-                <td><a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">{{ shopOrder.id }}</a></td>
-                <td>{{ shopOrder.email }}</td>
-                <td>{{ shopOrder.name }}</td>
-                <td>{{ shopOrder.lastName }}</td>
-                <td>{{ shopOrder.address }}</td>
-                <td>{{ shopOrder.address2 }}</td>
-                <td>{{ shopOrder.city }}</td>
-                <td>{{ shopOrder.state }}</td>
-                <td>{{ shopOrder.zip }}</td>
-                <td>{{ shopOrder.country }}</td>
-                <td>{{ shopOrder.product }}</td>
-                <td>{{ shopOrder.orderTotalBtc }}</td>
-                <td>{{ shopOrder.orderTotalUsd }}</td>
-                <td>{% if shopOrder.createdAt %}{{ shopOrder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if shopOrder.updatedAt %}{{ shopOrder.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if shopOrder.orderPaid %}Yes{% else %}No{% endif %}</td>
-                <td>{{ shopOrder.orderStatus }}</td>
-                <td>{{ shopOrder.amountPaid }}</td>
-                <td>{{ shopOrder.difference }}</td>
-                <td>{{ shopOrder.transactionHash }}</td>
-                <td>{{ shopOrder.btcAddressId }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('shoporder_show', { 'id': shopOrder.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('shoporder_edit', { 'id': shopOrder.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('shoporder_new') }}">Create a new shopOrder</a>
-        </li>
-    </ul>
+                </div>
+            </div>
+        </div>
+    </div>  
+
 {% endblock %}

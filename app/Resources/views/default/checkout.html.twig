@@ -2,105 +2,101 @@
 {% set product = app.session.get('product') %}
 
 	{% block body %}
-		<div class="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6">
 
-						<h2 class="h2-responsive center-on-small-only product-name">
-							<strong>{{ product.title }}</strong> - <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span> <span class="grey-text product-price"><small>${{ product.price }}</small></span>
-						</h2>
+				<h2 class="h2-responsive center-on-small-only product-name">
+					<strong>{{ product.title }}</strong> - <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span> <span class="grey-text product-price"><small>${{ product.price }}</small></span>
+				</h2>
 
-						<div class="card">
-							<div class="card-header" data-background-color="purple">
-								<h4 class="title">Product Checkout</h4>
-							</div>
-							<div class="card-content">
-								{{ form_start( checkout_form ) }}
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.email, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.email ) }}
-											{{ form_widget( checkout_form.email, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
+				<div class="card">
+					<div class="card-header" data-background-color="purple">
+						<h4 class="title">Product Checkout</h4>
+					</div>
+					<div class="card-content">
+						{{ form_start( checkout_form ) }}
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.email, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.email ) }}
+									{{ form_widget( checkout_form.email, {'attr': {'class': 'form-control'}} ) }}
 								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.name, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.name ) }}
-											{{ form_widget( checkout_form.name, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.lastName, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.lastName ) }}
-											{{ form_widget( checkout_form.lastName, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.address, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.address ) }}
-											{{ form_widget( checkout_form.address, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.address2, 'Apt/Suite (optional)', {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.address2 ) }}
-											{{ form_widget( checkout_form.address2, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.city, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.city ) }}
-											{{ form_widget( checkout_form.city, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.state, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.state ) }}
-											{{ form_widget( checkout_form.state, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.zip, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.zip ) }}
-											{{ form_widget( checkout_form.zip, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group label-floating is-empty">
-											{{ form_label( checkout_form.country, null, {'label_attr': {'class': 'control-label'}} ) }}
-											{{ form_errors( checkout_form.country ) }}
-											{{ form_widget( checkout_form.country, {'attr': {'class': 'form-control'}} ) }}
-										</div>
-									</div>
-								</div>
-								<button type="submit" class="btn btn-primary pull-right">Pay</button>
-								<div class="clearfix"></div>
-								{# Token CSRF #}
-								{{ form_widget( checkout_form._token ) }}
-								{{ form_end( checkout_form, {'render_rest': false} ) }}
 							</div>
 						</div>
-
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.name, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.name ) }}
+									{{ form_widget( checkout_form.name, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.lastName, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.lastName ) }}
+									{{ form_widget( checkout_form.lastName, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.address, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.address ) }}
+									{{ form_widget( checkout_form.address, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.address2, 'Apt/Suite (optional)', {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.address2 ) }}
+									{{ form_widget( checkout_form.address2, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.city, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.city ) }}
+									{{ form_widget( checkout_form.city, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.state, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.state ) }}
+									{{ form_widget( checkout_form.state, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.zip, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.zip ) }}
+									{{ form_widget( checkout_form.zip, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group label-floating is-empty">
+									{{ form_label( checkout_form.country, null, {'label_attr': {'class': 'control-label'}} ) }}
+									{{ form_errors( checkout_form.country ) }}
+									{{ form_widget( checkout_form.country, {'attr': {'class': 'form-control'}} ) }}
+								</div>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary pull-right">Pay</button>
+						<div class="clearfix"></div>
+						{# Token CSRF #}
+						{{ form_widget( checkout_form._token ) }}
+						{{ form_end( checkout_form, {'render_rest': false} ) }}
 					</div>
 				</div>
 
-				<div><a href="{{ path('product_show', { 'slug': product.slug }) }}"><i class="material-icons">keyboard_arrow_left</i>Back to product detail page</a></div>
-
 			</div>
 		</div>
+
+		<div><a href="{{ path('product_show', { 'slug': product.slug }) }}"><i class="material-icons">keyboard_arrow_left</i>Back to product detail page</a></div>
+
 	{% endblock %}
