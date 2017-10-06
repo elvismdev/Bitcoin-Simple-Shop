@@ -83,6 +83,16 @@ class ShopOrderController extends Controller
     public function editAction(Request $request, ShopOrder $shopOrder, BlockchainDotInfoService $blockchainInfo)
     {
 
+        // Check if order was already paid, redirect home if true.
+        if ( $shopOrder->getOrderPaid() === true ) {
+            $this->addFlash(
+                'notice',
+                'This order was already paid!'
+            );
+
+            return $this->redirectToRoute( 'homepage' );
+        }
+
         // Get Product object from order.
         $product = $shopOrder->getProduct();
 
