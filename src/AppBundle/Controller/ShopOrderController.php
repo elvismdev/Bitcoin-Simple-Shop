@@ -32,31 +32,6 @@ class ShopOrderController extends Controller
         ));
     }
 
-    /**
-     * Creates a new shopOrder entity.
-     *
-     * @Route("/new", name="shoporder_new")
-     * @Method({"GET", "POST"})
-     */
-    public function newAction(Request $request)
-    {
-        $shopOrder = new Shoporder();
-        $form = $this->createForm('AppBundle\Form\ShopOrderType', $shopOrder);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($shopOrder);
-            $em->flush();
-
-            return $this->redirectToRoute('shoporder_show', array('id' => $shopOrder->getId()));
-        }
-
-        return $this->render('shoporder/new.html.twig', array(
-            'shopOrder' => $shopOrder,
-            'form' => $form->createView(),
-        ));
-    }
 
     /**
      * Finds and displays a shopOrder entity.
@@ -82,6 +57,16 @@ class ShopOrderController extends Controller
      */
     public function editAction(Request $request, ShopOrder $shopOrder, BlockchainDotInfoService $blockchainInfo)
     {
+
+        // Check if order was already paid, redirect home if true.
+        if ( $shopOrder->getOrderPaid() === true ) {
+            $this->addFlash(
+                'notice',
+                'This order was already paid!'
+            );
+
+            return $this->redirectToRoute( 'homepage' );
+        }
 
         // Get Product object from order.
         $product = $shopOrder->getProduct();
@@ -133,8 +118,15 @@ class ShopOrderController extends Controller
 
         $this->addFlash(
             'notice',
-            'Your order has been canceled!'
+            'Order has been removed!'
         );
+
+        
+        // If deleted from admin, redirect to orders lists.
+        $path = $this->getRefererPath( $request );
+        $regex = '#^/shoporder/(?P<id>[0-9]+)$#';
+        if ( preg_match( $regex, $path ) ) return $this->redirectToRoute( 'shoporder_index' );
+
 
         return $this->redirectToRoute('homepage');
     }
@@ -154,4 +146,24 @@ class ShopOrderController extends Controller
         ->getForm()
         ;
     }
+
+
+    /**
+     * Get the referer path for a Request.
+     * 
+     * @param object $request
+     * @return string
+     */
+    private function getRefererPath(Request $request = null)
+    {
+        if ($request == null)
+            $request = $this->getRequest();
+
+        //look for the referer route
+        $referer = $request->headers->get('referer');
+        $path = str_replace($request->getSchemeAndHttpHost(), '', $referer);
+
+        return $path;
+    }
+
 }

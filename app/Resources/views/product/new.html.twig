@@ -1,54 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
+    <div class="row">
+        <div class="col-md-6">
 
-                    <div class="card">
-                        <div class="card-header" data-background-color="purple">
-                            <h4 class="title">Product creation</h4>
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="title">Product creation</h4>
+                </div>
+                <div class="card-content">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group label-floating is-empty">
+                                {{ form_label( form.title, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                {{ form_errors( form.title ) }}
+                                {{ form_widget( form.title, {'attr': {'class': 'form-control'}} ) }}
+                            </div>
                         </div>
-                        <div class="card-content">
-                            {{ form_start(form) }}
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group label-floating is-empty">
-                                        {{ form_label( form.title, null, {'label_attr': {'class': 'control-label'}} ) }}
-                                        {{ form_errors( form.title ) }}
-                                        {{ form_widget( form.title, {'attr': {'class': 'form-control'}} ) }}
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
-                                        {{ form_label( form.price, null, {'label_attr': {'class': 'control-label'}} ) }}
-                                        {{ form_errors( form.price ) }}
-                                        {{ form_widget( form.price, {'attr': {'class': 'form-control'}} ) }}
-                                    </div>
-                                </div>
+                        <div class="col-md-4">
+                            <div class="form-group label-floating is-empty">
+                                {{ form_label( form.price, null, {'label_attr': {'class': 'control-label'}} ) }}
+                                {{ form_errors( form.price ) }}
+                                {{ form_widget( form.price, {'attr': {'class': 'form-control'}} ) }}
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group label-floating is-empty">
-                                        {{ form_label( form.body, 'Description', {'label_attr': {'class': 'control-label'}} ) }}
-                                        {{ form_errors( form.body ) }}
-                                        {{ form_widget( form.body, {'attr': {'class': 'form-control', 'rows': 5}} ) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary pull-right">Create</button>
-                            <div class="clearfix"></div>
-                            {# Token CSRF #}
-                            {{ form_widget( form._token ) }}
-                            {{ form_end(form, {'render_rest': false}) }}
                         </div>
                     </div>
-
-                    {% include 'components/products-back.twig' %}
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group label-floating is-empty">
+                                {{ form_label( form.body, 'Description', {'label_attr': {'class': 'control-label'}} ) }}
+                                {{ form_errors( form.body ) }}
+                                {{ form_widget( form.body, {'attr': {'class': 'form-control', 'rows': 5}} ) }}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Create</button>
+                    <div class="clearfix"></div>
+                    {# Token CSRF #}
+                    {{ form_widget( form._token ) }}
+                    {{ form_end(form, {'render_rest': false}) }}
                 </div>
             </div>
+
+            {% include 'components/products-back.twig' %}
+
         </div>
     </div>
 {% endblock %}

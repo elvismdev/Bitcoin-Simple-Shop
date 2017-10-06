@@ -17,3 +17,10 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    # Blockchain.info details
+    blockchain_dot_info:
+        api_key: 'API_KEY_HERE'
+        xpub: 'XPUB_HERE'
+        secret: 'SECRET_HERE'
+        receive_url: https://api.blockchain.info/v2/receive

@@ -31,3 +31,15 @@ td.actions ul {
 .order-id small {
 	font-size: 40%;
 }
+
+.qr-code img {
+	width: inherit;
+}
+
+.websocket-color-blue {
+	color: #337ab7;
+}
+
+.websocket-color-green {
+	color: #459648
+}

@@ -1,54 +1,104 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-lg-6">
 
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
+            <h2 class="h2-responsive center-on-small-only product-name">
+                <strong>{{ shopOrder.product.title }}</strong> <span class="grey-text order-id"><small>Order ID: {{ shopOrder.id }}</small></span>
+            </h2>
 
-                    <h2 class="h2-responsive center-on-small-only product-name">
-                        <strong>{{ shopOrder.product.title }}</strong> <span class="grey-text order-id"><small>Order ID: {{ shopOrder.id }}</small></span>
-                    </h2>
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="title">Order Paywall</h4>
+                </div>
+                <div class="card-content">
 
-                    <div class="card">
-                        <div class="card-header" data-background-color="purple">
-                            <h4 class="title">Order Paywall</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <h3>Ship To:</h3>
+                            {{ shopOrder.name }} {{ shopOrder.lastName }}<br>
+                            {{ shopOrder.address }}<br>
+                            {% if shopOrder.address2 %}
+                                {{ shopOrder.address2 }}<br>
+                            {% endif %}
+                            {{ shopOrder.city }}, {{ shopOrder.state }}, {{ shopOrder.zip }}<br>
+                            {{ shopOrder.country }}<br>
+                            {{ shopOrder.email }}<br>
+
+                            <a href="{{ path('shoporder_edit', { 'id': shopOrder.id }) }}">Edit</a>
+
                         </div>
-                        <div class="card-content">
+                        <div class="col-md-8 text-center">
+                            <h3 class="btc-due"><strong>Amount Due:  <i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc|number_format(4) }}</strong></h3>
+                            <p><em>Send payment to the below address to complete your order.</em></p>
 
-                            <div class="row">
-                                <div class="col-md-2">
-
-                                    <h3>Ship To:</h3>
-                                    {{ shopOrder.name }} {{ shopOrder.lastName }}<br>
-                                    {{ shopOrder.address }}<br>
-                                    {% if shopOrder.address2 %}
-                                        {{ shopOrder.address2 }}<br>
-                                    {% endif %}
-                                    {{ shopOrder.city }}, {{ shopOrder.state }}, {{ shopOrder.zip }}<br>
-                                    {{ shopOrder.country }}<br>
-                                    {{ shopOrder.email }}<br>
-
-                                    <a href="{{ path('shoporder_edit', { 'id': shopOrder.id }) }}">Edit</a>
-
-                                </div>
-                                <div class="col-md-10 text-center">
-                                    <h3 class="btc-due"><strong>Amount Due:  <i class="fa fa-btc"></i>{{ shopOrder.orderTotalBtc|number_format(4) }}</strong></h3>
-                                    <p>Send payment to the below address to complete your order.</p>
-
-                                    <div class="qr-code">
-                                        QR CODE HERE
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <input id="btc-address" type="text" class="form-control text-center" readonly="readonly" value="{{ pay_to }}">
+                                <button class="btn" data-clipboard-target="#btc-address">
+                                    <i class="material-icons">content_copy</i> Copy Address
+                                </button>
                             </div>
 
+                            <div class="qr-code">
+                                <br>
+                                <p><em>Or scan QR Code with your mobile device.</em></p>
+                                <img src="http://chart.googleapis.com/chart?chs=350x350&cht=qr&chl={{ pay_to }}">
+                            </div>
+
+                            <div id="websocket" class="websocket-color-blue"><i class="fa fa-circle-o-notch fa-spin"></i> Awaiting {{ shopOrder.orderTotalBtc|number_format(4) }} BTC payment...</div>
                         </div>
                     </div>
 
                 </div>
             </div>
+
         </div>
     </div>
+{% endblock %}
 
+{# Includig Clipboard.js to copy BTC address with <button> element #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+    // Setting the clipboard element.
+    let clipboard = new Clipboard('.btn');
+
+    // Blockchain.info WebSocket to monitor address for payments.
+    let btcs = new WebSocket("wss://ws.blockchain.info/inv");
+    let socketElem = document.getElementById("websocket");
+    let coinAudio = new Audio('/assets/audio/smw_coin.wav');
+    
+    btcs.onopen = function(){
+        btcs.send( JSON.stringify( {"op":"addr_sub", "addr":"{{ pay_to }}"} ) );
+    };
+
+    btcs.onmessage = function(onmsg){
+        let response = JSON.parse(onmsg.data);
+        let outs = response.x.out;
+        let countOuts = outs.length;
+
+        // Count the outputs to find the transaction.
+        for ( i = 0; i < countOuts; i++ ) {
+            let outAdd = response.x.out[i].addr;
+            let address = "{{ pay_to }}";
+            // Check if we have the payment address.
+            if ( outAdd == address ) {
+                let amount = response.x.out[i].value;
+                let calAmount = amount / 100000000;
+                socketElem.innerHTML = '<i class="fa fa-thumbs-o-up"></i> Received ' + calAmount + ' BTC';
+                socketElem.classList.remove("websocket-color-blue");
+                socketElem.classList.add("websocket-color-green");
+                coinAudio.play();
+
+                // Redirect to homepage after sucessfull payment.
+                setTimeout(function () {
+                    window.location.href = "/thankyou/{{ shopOrder.id }}";
+                }, 2000);
+            };
+        };
+    };
+    </script>
 {% endblock %}
