@@ -33,5 +33,5 @@ td.actions ul {
 }
 
 .qr-code img {
-	width: 50%;
+	width: inherit;
 }
