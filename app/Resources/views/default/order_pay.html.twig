@@ -47,9 +47,7 @@
                                 <img src="http://chart.googleapis.com/chart?chs=350x350&cht=qr&chl={{ pay_to }}">
                             </div>
 
-                            <div id="websocket" class="websocket-color-blue">
-                                <i class="fa fa-circle-o-notch fa-spin"></i> Awaiting {{ shopOrder.orderTotalBtc|number_format(4) }} BTC payment...
-                            </div>
+                            <div id="websocket" class="websocket-color-blue"><i class="fa fa-circle-o-notch fa-spin"></i> Awaiting {{ shopOrder.orderTotalBtc|number_format(4) }} BTC payment...</div>
                         </div>
                     </div>
 
@@ -65,6 +63,35 @@
     {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
     <script type="text/javascript">
-    var clipboard = new Clipboard('.btn');
+    // Setting the clipboard element.
+    let clipboard = new Clipboard('.btn');
+
+    // Blockchain.info WebSocket to monitor address for payments.
+    let btcs = new WebSocket("wss://ws.blockchain.info/inv");
+    let socketElem = document.getElementById("websocket");
+    
+    btcs.onopen = function(){
+        btcs.send( JSON.stringify( {"op":"addr_sub", "addr":"{{ pay_to }}"} ) );
+    };
+
+    btcs.onmessage = function(onmsg){
+        let response = JSON.parse(onmsg.data);
+        let outs = response.x.out;
+        let countOuts = outs.length;
+
+        // Count the outputs to find the transaction.
+        for ( i = 0; i < countOuts; i++ ) {
+            let outAdd = response.x.out[i].addr;
+            let address = "{{ pay_to }}";
+            // Check if we have the payment address.
+            if ( outAdd == address ) {
+                let amount = response.x.out[i].value;
+                let calAmount = amount / 100000000;
+                socketElem.innerHTML = '<i class="fa fa-thumbs-o-up"></i> Received ' + calAmount + ' BTC';
+                socketElem.classList.remove("websocket-color-blue");
+                socketElem.classList.add("websocket-color-green");
+            };
+        };
+    };
     </script>
 {% endblock %}
