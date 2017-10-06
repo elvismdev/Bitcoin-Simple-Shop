@@ -89,7 +89,7 @@ class DefaultController extends Controller
         // Get Blockchain.info parameters.
         $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
         // Create callback url.
-        $callback_url = $request->getSchemeAndHttpHost() . '/thankyou/' . $shopOrder->getId() . '/' . $blockchainDotInfoParams['secret'];
+        $callback_url = $request->getSchemeAndHttpHost() . '/callback/' . $shopOrder->getId() . '/' . $blockchainDotInfoParams['secret'];
         // Set parameters for Blockchain.info address request.
         $params = 'xpub=' . $blockchainDotInfoParams['xpub'] . '&callback=' . urlencode( $callback_url ) . '&key=' . $blockchainDotInfoParams['api_key'];
         // Get address to pay from Blockchain.info
