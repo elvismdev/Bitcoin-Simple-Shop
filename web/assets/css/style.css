@@ -35,3 +35,7 @@ td.actions ul {
 .qr-code img {
 	width: inherit;
 }
+
+.websocket-color-blue {
+	color: #337ab7;
+}

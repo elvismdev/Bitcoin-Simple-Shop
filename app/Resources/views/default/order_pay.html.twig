@@ -46,6 +46,10 @@
                                 <p><em>Or scan QR Code with your mobile device.</em></p>
                                 <img src="http://chart.googleapis.com/chart?chs=350x350&cht=qr&chl={{ pay_to }}">
                             </div>
+
+                            <div id="websocket" class="websocket-color-blue">
+                                <i class="fa fa-circle-o-notch fa-spin"></i> Awaiting {{ shopOrder.orderTotalBtc|number_format(4) }} BTC payment...
+                            </div>
                         </div>
                     </div>
 
