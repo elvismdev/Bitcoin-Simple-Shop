@@ -164,4 +164,22 @@ class DefaultController extends Controller
         
     }
 
+
+    /**
+     * @Route("/thankyou/{id}", name="thank_you")
+     * @Method("GET")
+     */
+    public function thankYouAction( ShopOrder $shopOrder, Request $request )
+    {
+        // Set flashbag success message if we come from the order payment page.
+        if ( $shopOrder->getOrderPaid() === true ) {
+            $this->addFlash(
+                'notice',
+                'Your order has been placed!'
+            );
+        }
+
+        return $this->redirectToRoute( 'homepage' );
+    }
+
 }
