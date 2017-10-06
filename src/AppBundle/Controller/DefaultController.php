@@ -86,6 +86,17 @@ class DefaultController extends Controller
      * @Method("GET")
      */
     public function payAction( ShopOrder $shopOrder, Request $request ) {
+
+        // Check if order was already paid, redirect home if true.
+        if ( $shopOrder->getOrderPaid() === true ) {
+            $this->addFlash(
+                'notice',
+                'This order was already paid!'
+            );
+
+            return $this->redirectToRoute( 'homepage' );
+        }
+
         // Get Blockchain.info parameters.
         $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
         // Create callback url.
