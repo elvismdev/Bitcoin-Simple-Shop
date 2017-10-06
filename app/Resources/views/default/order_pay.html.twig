@@ -69,6 +69,7 @@
     // Blockchain.info WebSocket to monitor address for payments.
     let btcs = new WebSocket("wss://ws.blockchain.info/inv");
     let socketElem = document.getElementById("websocket");
+    let coinAudio = new Audio('/assets/audio/smw_coin.wav');
     
     btcs.onopen = function(){
         btcs.send( JSON.stringify( {"op":"addr_sub", "addr":"{{ pay_to }}"} ) );
@@ -90,6 +91,7 @@
                 socketElem.innerHTML = '<i class="fa fa-thumbs-o-up"></i> Received ' + calAmount + ' BTC';
                 socketElem.classList.remove("websocket-color-blue");
                 socketElem.classList.add("websocket-color-green");
+                coinAudio.play();
             };
         };
     };
