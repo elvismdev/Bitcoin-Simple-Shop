@@ -32,31 +32,6 @@ class ShopOrderController extends Controller
         ));
     }
 
-    /**
-     * Creates a new shopOrder entity.
-     *
-     * @Route("/new", name="shoporder_new")
-     * @Method({"GET", "POST"})
-     */
-    public function newAction(Request $request)
-    {
-        $shopOrder = new Shoporder();
-        $form = $this->createForm('AppBundle\Form\ShopOrderType', $shopOrder);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($shopOrder);
-            $em->flush();
-
-            return $this->redirectToRoute('shoporder_show', array('id' => $shopOrder->getId()));
-        }
-
-        return $this->render('shoporder/new.html.twig', array(
-            'shopOrder' => $shopOrder,
-            'form' => $form->createView(),
-        ));
-    }
 
     /**
      * Finds and displays a shopOrder entity.
