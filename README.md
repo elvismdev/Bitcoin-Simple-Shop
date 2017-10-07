@@ -1,12 +1,14 @@
 # Bitcoin Simple Shop
 
-*Proof of concept for a Bitcoin only ecommerce site. This project is intended for small shops with few products.*
+*Proof of concept for a Bitcoin only ecommerce site. This project is intended for small shops with few products (but don't use it for real business).*
 
 ## Requirements
 - Composer
 - PHP 7.0+
 - Apache or NGINX server.
 - MySQL server
+- Bitcoin wallet on [Blockchain.info](https://blockchain.info/wallet)
+- API key for [Blockchain Receive Payments API V2](https://blockchain.info/api/api_receive)
 
 ## Installation
 
@@ -28,7 +30,7 @@ Make a copy of `parameters.yml.dist` to `parameters.yml` and edit/set in this la
 $ cp app/config/parameters.yml.dist app/config/parameters.yml && nano app/config/parameters.yml
 ```
 
-Run the commands below to generate an empty database for the shop:
+Run the commands below to generate an empty database schema for the shop:
 
 ```
 $ php bin/console doctrine:database:create
@@ -39,6 +41,8 @@ $ php bin/console doctrine:schema:update --force
 ```
 
 Point the server virtual host to `/srv/public_html/web/`
+
+Load the shop in your browser, add some products, have fun (contribute).
 
 #### Food for nerds
 - Built on [Symfony Framework](https://symfony.com/)
