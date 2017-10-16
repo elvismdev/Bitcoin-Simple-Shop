@@ -84,6 +84,8 @@ easy_admin:
         # brand_color: '#1ABC9C'    # To specify backend brand color.
     entities:
         ShopOrder:
+            list:
+                actions: ['show']
             class: AppBundle\Entity\ShopOrder
             label: 'Product Orders'
             list:
