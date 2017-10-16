@@ -44,6 +44,8 @@ Point the server virtual host to `/srv/public_html/web/`
 
 Load the shop in your browser, add some products, have fun (contribute).
 
+![alt text](https://raw.githubusercontent.com/elvismdev/Bitcoin-Simple-Shop/master/web/assets/img/demo-checkout.jpg)
+
 #### Food for nerds
 - Built on [Symfony Framework](https://symfony.com/)
 - Uses [Blockchain.info API](https://blockchain.info/api) for exchange rates and [BTC wallet](https://blockchain.info/wallet) payments
