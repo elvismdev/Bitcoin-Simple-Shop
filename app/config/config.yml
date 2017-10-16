@@ -11,7 +11,7 @@ parameters:
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -75,3 +75,9 @@ stof_doctrine_extensions:
         default:
             sluggable: true
             timestampable: true
+
+# EasyAdmin
+easy_admin:
+    entities:
+        - AppBundle\Entity\Product
+        - AppBundle\Entity\ShopOrder
