@@ -79,6 +79,21 @@ stof_doctrine_extensions:
 # EasyAdmin
 easy_admin:
     site_name: 'Bitcoin Simple Shop Admin'
+    design:
+        # brand_color: '#1ABC9C'    # To specify backend brand color.
     entities:
-        - AppBundle\Entity\ShopOrder
-        - AppBundle\Entity\Product
+        ShopOrder:
+            class: AppBundle\Entity\ShopOrder
+            label: 'Product Orders'
+            list:
+                title: "Orders"
+        Product:
+            class: AppBundle\Entity\Product
+            form:
+                fields:
+                    - 'title'
+                    - 'body'
+                    - 'price'
+            label: 'Products'
+            list:
+                title: "Product"
