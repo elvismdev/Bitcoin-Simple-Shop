@@ -78,6 +78,7 @@ stof_doctrine_extensions:
 
 # EasyAdmin
 easy_admin:
+    site_name: 'Bitcoin Simple Shop Admin'
     entities:
         - AppBundle\Entity\Product
         - AppBundle\Entity\ShopOrder
