@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ShopOrder
 {
+
     /**
      * @var int
      *
@@ -86,13 +87,6 @@ class ShopOrder
     private $country;
 
     /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="product", type="object")
-     */
-    private $product;
-
-    /**
      * @var float
      *
      * @ORM\Column(name="order_total_btc", type="float")
@@ -163,6 +157,11 @@ class ShopOrder
      * @ORM\Column(name="btc_address_id", type="string", length=255, nullable=true)
      */
     private $btcAddressId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", cascade={"persist"})
+     */
+    private $product;
 
 
     /**

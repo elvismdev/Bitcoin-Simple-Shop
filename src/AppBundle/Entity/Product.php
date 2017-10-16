@@ -215,5 +215,12 @@ class Product
 
         return $this;
     }
+
+    /**
+     * To string method for this Entity.
+     */
+    public function __toString() {
+        return $this->title;
+    }
 }
 
