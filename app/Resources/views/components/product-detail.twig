@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-12 center-on-small-only text-md-right">
                         {# Loop all available prices #}
-                        <div class="pull-right">
+                        <div class="pull-right" id="price-list">
                             {% for opt in product.priceOptions %}
                                 <div class="md-radio">
                                     <input id="{{ opt.id }}" type="radio" name="g">
@@ -35,7 +35,7 @@
 
                         <div class="clearfix"></div>
 
-                        <a><button class="btn btn-primary waves-effect waves-light pull-right disabled"><i class="fa fa-cart-plus" aria-hidden="true"></i> Buy Now</button></a>
+                        <a id="checkout-url"><button id="btn-checkout" class="btn btn-primary waves-effect waves-light pull-right disabled"><i class="fa fa-cart-plus" aria-hidden="true"></i> Buy Now</button></a>
                     </div>
                 </div>
             </div>
