@@ -49,6 +49,13 @@ class DefaultController extends Controller
         }
 
 
+        // Get price ID if any.
+        $priceId = $request->get('price_id');
+        // Get the price option from DB.
+        $em = $this->getDoctrine()->getManager();
+        $priceOpt = $em->getRepository('AppBundle:PriceOption')->find( $priceId );
+
+
         // Create a new shop order form.
         $shopOrder = new Shoporder();
         $form = $this->createForm('AppBundle\Form\ShopOrderType', $shopOrder);
@@ -60,9 +67,9 @@ class DefaultController extends Controller
             $shopOrder->setProduct( $product );
             $shopOrder->setOrderPaid( false );
             $shopOrder->setOrderStatus( 'pending_payment' );
-            $shopOrder->setOrderTotalUsd( $product->getPrice() );
+            $shopOrder->setOrderTotalUsd( $priceOpt->getPrice() );
             // Set final total in BTC for this order.
-            $totalBTC = $blockchainInfo->toBTC( $product->getPrice() );
+            $totalBTC = $blockchainInfo->toBTC( $priceOpt->getPrice() );
             $shopOrder->setOrderTotalBtc( $totalBTC );
 
             $em = $this->getDoctrine()->getManager();
@@ -73,6 +80,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/checkout.html.twig', array(
+            'product_price'  => $priceOpt->getPrice(),
             'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint'),
             'checkout_form' => $form->createView(),
         ));
