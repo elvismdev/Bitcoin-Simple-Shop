@@ -7,3 +7,16 @@
 	<div><a href="{{ path('homepage') }}"><i class="material-icons">keyboard_arrow_left</i>Back to store homepage</a></div>
 
 {% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+	// Remove disabled class to BUY NOW button and set checkout URL with price ID for the product.
+	$("#price-list input").click(function (e) {
+		$("#checkout-url").attr("href","/checkout/"+this.value);
+		$("#btn-checkout").removeClass("disabled");
+	});
+	</script>
+
+{% endblock %}

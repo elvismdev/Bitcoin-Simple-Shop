@@ -22,7 +22,7 @@
                         <div class="pull-right" id="price-list">
                             {% for opt in product.priceOptions %}
                                 <div class="md-radio">
-                                    <input id="{{ opt.id }}" type="radio" name="g">
+                                    <input id="{{ opt.id }}" type="radio" name="g" value="{{ opt.id }}">
                                     <label for="{{ opt.id }}">
 
                                         <span class="green-text product-price"><strong>{{ opt.days }} Days - <i class="fa fa-btc"></i><span id="bitcoin-price-{{ opt.id }}"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span>
