@@ -39,7 +39,7 @@ class PriceOption
     /**
      * Many Prices have One Product.
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="prices")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="priceOptions")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;

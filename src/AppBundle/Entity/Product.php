@@ -41,7 +41,7 @@ class Product
      * One Product has Many Prices.
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceOption", mappedBy="product")
      */
-    private $prices;
+    private $priceOptions;
 
     /**
      * @var \DateTime
@@ -67,7 +67,7 @@ class Product
 
 
     public function __construct() {
-        $this->prices = new ArrayCollection();
+        $this->priceOptions = new ArrayCollection();
     }
 
 
@@ -208,37 +208,36 @@ class Product
 
 
     /**
-     * Add price
+     * Add priceOption
      *
-     * @param \AppBundle\Entity\PriceOption $price
+     * @param \AppBundle\Entity\PriceOption $priceOption
      *
      * @return Product
      */
-    public function addPrice(\AppBundle\Entity\PriceOption $price)
+    public function addPriceOption(\AppBundle\Entity\PriceOption $priceOption)
     {
-        $this->prices[] = $price;
+        $this->priceOptions[] = $priceOption;
 
         return $this;
     }
 
     /**
-     * Remove price
+     * Remove priceOption
      *
-     * @param \AppBundle\Entity\PriceOption $price
+     * @param \AppBundle\Entity\PriceOption $priceOption
      */
-    public function removePrice(\AppBundle\Entity\PriceOption $price)
+    public function removePriceOption(\AppBundle\Entity\PriceOption $priceOption)
     {
-        $this->prices->removeElement($price);
+        $this->priceOptions->removeElement($priceOption);
     }
 
     /**
-     * Get prices
+     * Get priceOptions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPrices()
+    public function getPriceOptions()
     {
-        return $this->prices;
+        return $this->priceOptions;
     }
-
 }
