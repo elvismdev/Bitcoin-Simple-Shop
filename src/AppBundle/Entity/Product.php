@@ -38,8 +38,13 @@ class Product
     private $body;
 
     /**
-     * One Product has Many Prices.
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceOption", mappedBy="product")
+     * Many Product have Many Prices.
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PriceOption")
+     * @ORM\JoinTable(name="product_price_option",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id")}
+     *      )
      */
     private $priceOptions;
 
@@ -204,6 +209,7 @@ class Product
     public function __toString() {
         return $this->title;
     }
+
 
 
 

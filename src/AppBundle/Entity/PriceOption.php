@@ -36,14 +36,6 @@ class PriceOption
      */
     private $price;
 
-    /**
-     * Many Prices have One Product.
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="priceOptions")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     */
-    private $product;
-
 
     /**
      * Get id
@@ -80,16 +72,6 @@ class PriceOption
     }
 
 
-    // /**
-    //  *  Return value in string for this entity.
-    //  */
-    // public function __toString() {
-    //     return "$this->days days - $this->price €";
-    // }
-
-
-
-
     /**
      * Set price
      *
@@ -114,27 +96,12 @@ class PriceOption
         return $this->price;
     }
 
-    /**
-     * Set product
-     *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return PriceOption
-     */
-    public function setProduct(\AppBundle\Entity\Product $product = null)
-    {
-        $this->product = $product;
 
-        return $this;
-    }
-
+    
     /**
-     * Get product
-     *
-     * @return \AppBundle\Entity\Product
+     *  Return value in string for this entity.
      */
-    public function getProduct()
-    {
-        return $this->product;
-    }
+    // public function __toString() {
+    //     return "$this->days days - $this->price €";
+    // }
 }
