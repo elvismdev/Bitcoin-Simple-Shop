@@ -2,10 +2,16 @@
     <div class="row">
         <div class="col-lg-6">
             <h2 class="h2-responsive center-on-small-only product-name"><strong>{{ product.title }}</strong></h2>
-            <h4 class="h4-responsive center-on-small-only">
-                <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span>
-                <span class="grey-text product-price"><small><i class="fa fa-usd"></i>{{ product.price }}</small></span>
-            </h4>
+            
+            {# Loop all available prices #}
+            {% for opt in product.priceOptions %}
+                <h4 class="h4-responsive center-on-small-only">
+                    <span class="green-text product-price"><strong>{{ opt.days }} Days - <i class="fa fa-btc"></i><span id="bitcoin-price-{{ opt.id }}"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span>
+                    <span class="grey-text product-price"><small><i class="fa fa-usd"></i>{{ opt.price }}</small></span>
+                </h4>
+            {% endfor %}
+
+
 
             <div class="card">
                 <div class="card-header" data-background-color="purple">
