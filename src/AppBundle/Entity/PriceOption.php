@@ -101,7 +101,7 @@ class PriceOption
     /**
      *  Return value in string for this entity.
      */
-    // public function __toString() {
-    //     return "$this->days days - $this->price €";
-    // }
+    public function __toString() {
+        return "$this->days days - $this->price €";
+    }
 }

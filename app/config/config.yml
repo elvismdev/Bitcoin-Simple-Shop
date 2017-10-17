@@ -95,7 +95,7 @@ easy_admin:
                 fields:
                     - 'title'
                     - 'body'
-                    - 'price'
+                    - 'priceOptions'
             label: 'Products'
             list:
                 title: "Product"
