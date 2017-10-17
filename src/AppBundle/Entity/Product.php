@@ -40,7 +40,7 @@ class Product
     /**
      * Many Product have Many Prices.
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PriceOption")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PriceOption", cascade={"persist"})
      * @ORM\JoinTable(name="product_price_option",
      *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id")}
