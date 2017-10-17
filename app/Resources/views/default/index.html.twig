@@ -15,10 +15,10 @@
                             <h3 class="category"><a href="{{ path('product_show', { 'slug': product.slug }) }}">{{ product.title }}</a></h3>
                             <ul class="list-unstyled">
                                 {% for price in product.priceOptions %}
-                                 <li>
+                                   <li>
                                     <div class="price-options">
                                         {# {{ dump(price) }} #}
-                                        {{ price }} <a href="{{ path('product_show', { 'slug': product.slug, 'quick_checkout': 1 }) }}">Buy Now</a> <i class="material-icons">add_shopping_cart</i>
+                                        {{ price }} <a href="{{ path('product_show', { 'slug': product.slug, 'quick_checkout': 1, 'price_id': price.id }) }}">Buy Now</a> <i class="material-icons">add_shopping_cart</i>
                                     </div>
                                 </li>
                             {% endfor %}

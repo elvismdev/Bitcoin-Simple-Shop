@@ -85,7 +85,7 @@ class ProductController extends Controller
     /**
      * Finds and displays a product entity.
      *
-     * @Route("/{slug}/{quick_checkout}", name="product_show", defaults={"quick_checkout" = 0})
+     * @Route("/{slug}/{quick_checkout}/{price_id}", name="product_show", defaults={"quick_checkout" = 0, "price_id" = 0})
      * @Method("GET")
      */
     public function showAction(Product $product, Request $request)
@@ -94,6 +94,9 @@ class ProductController extends Controller
         // Save Product in session in case of checkout.
         $session = $request->getSession();
         $session->set('product', $product);
+        // Save price ID in session.
+        $priceId = $request->get('price_id');
+        $session->set('price_id', $priceId);
 
         // If quick checkout, redirect to checkout.
         if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'checkout' );
