@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product
@@ -37,11 +38,10 @@ class Product
     private $body;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="price", type="float")
+     * One Product has Many Prices.
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PriceOption", mappedBy="product")
      */
-    private $price;
+    private $prices;
 
     /**
      * @var \DateTime
@@ -64,6 +64,11 @@ class Product
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
+
+
+    public function __construct() {
+        $this->prices = new ArrayCollection();
+    }
 
 
     /**
@@ -124,29 +129,6 @@ class Product
         return $this->body;
     }
 
-    /**
-     * Set price
-     *
-     * @param float $price
-     *
-     * @return Product
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
 
     /**
      * Set updatedAt
@@ -222,5 +204,41 @@ class Product
     public function __toString() {
         return $this->title;
     }
-}
 
+
+
+    /**
+     * Add price
+     *
+     * @param \AppBundle\Entity\PriceOption $price
+     *
+     * @return Product
+     */
+    public function addPrice(\AppBundle\Entity\PriceOption $price)
+    {
+        $this->prices[] = $price;
+
+        return $this;
+    }
+
+    /**
+     * Remove price
+     *
+     * @param \AppBundle\Entity\PriceOption $price
+     */
+    public function removePrice(\AppBundle\Entity\PriceOption $price)
+    {
+        $this->prices->removeElement($price);
+    }
+
+    /**
+     * Get prices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+}
