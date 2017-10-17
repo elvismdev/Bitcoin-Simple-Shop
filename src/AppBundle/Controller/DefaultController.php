@@ -29,7 +29,7 @@ class DefaultController extends Controller
     /**
      * Do the checkout, sets an order.
      *
-     * @Route("/checkout", name="checkout")
+     * @Route("/checkout/{price_id}", name="checkout")
      * @Method({"GET", "POST"})
      */
     public function checkoutAction(Request $request, BlockchainDotInfoService $blockchainInfo)

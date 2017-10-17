@@ -94,12 +94,11 @@ class ProductController extends Controller
         // Save Product in session in case of checkout.
         $session = $request->getSession();
         $session->set('product', $product);
-        // Save price ID in session.
+        // Get price ID if any.
         $priceId = $request->get('price_id');
-        $session->set('price_id', $priceId);
 
         // If quick checkout, redirect to checkout.
-        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'checkout' );
+        if ( $request->get( 'quick_checkout' ) == 1 && !is_null( $priceId ) ) return $this->redirectToRoute( 'checkout', array( 'price_id' => $priceId ) );
 
         // Or redirect to product detail page.
         return $this->render('product/show.html.twig', array(
