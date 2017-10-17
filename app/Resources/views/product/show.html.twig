@@ -12,9 +12,13 @@
 	{{ parent() }}
 
 	<script type="text/javascript">
+
+	// Get base URL to match all environments.
+	let baseURL = "{{ app.request.BaseUrl() }}";
+
 	// Remove disabled class to BUY NOW button and set checkout URL with price ID for the product.
 	$("#price-list input").click(function (e) {
-		$("#checkout-url").attr("href","/checkout/"+this.value);
+		$("#checkout-url").attr("href", baseURL+"/checkout/"+this.value);
 		$("#btn-checkout").removeClass("disabled");
 	});
 	</script>
