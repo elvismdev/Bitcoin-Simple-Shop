@@ -159,7 +159,7 @@ class ShopOrder
     private $btcAddressId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="orders")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
@@ -630,6 +630,8 @@ class ShopOrder
     {
         return $this->btcAddressId;
     }
+
+
 
     /**
      * Set product

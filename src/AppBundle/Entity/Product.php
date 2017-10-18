@@ -70,9 +70,15 @@ class Product
      */
     private $slug;
 
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\ShopOrder", mappedBy="product" , cascade={"remove"}, orphanRemoval=true )
+    */
+    private $orders;
+
 
     public function __construct() {
         $this->priceOptions = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
 
@@ -245,5 +251,39 @@ class Product
     public function getPriceOptions()
     {
         return $this->priceOptions;
+    }
+
+    /**
+     * Add order
+     *
+     * @param \AppBundle\Entity\ShopOrder $order
+     *
+     * @return Product
+     */
+    public function addOrder(\AppBundle\Entity\ShopOrder $order)
+    {
+        $this->orders[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \AppBundle\Entity\ShopOrder $order
+     */
+    public function removeOrder(\AppBundle\Entity\ShopOrder $order)
+    {
+        $this->orders->removeElement($order);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }
