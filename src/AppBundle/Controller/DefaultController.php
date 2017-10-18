@@ -117,8 +117,8 @@ class DefaultController extends Controller
         $response = \Requests::get( $blockchainDotInfoParams['receive_url'] . '?' . $params );
 
 
-        // print_r($response->body);
-        // die();
+        print_r($response->body);
+        die();
 
         return $this->render('default/order_pay.html.twig', array(
             'products'  => $products,
