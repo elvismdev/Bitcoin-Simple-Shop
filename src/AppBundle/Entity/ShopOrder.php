@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ShopOrder
@@ -158,11 +159,22 @@ class ShopOrder
      */
     private $btcAddressId;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="orders")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * Many Orders have Many Products.
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", cascade={"persist"})
+     * @ORM\JoinTable(name="product_shop_order",
+     *      joinColumns={@ORM\JoinColumn(name="shop_order_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
+     *      )
      */
-    private $product;
+    private $products;
+
+
+    public function __construct() {
+        $this->products = new ArrayCollection();
+    }
 
 
     /**
@@ -633,27 +645,39 @@ class ShopOrder
 
 
 
+
+
     /**
-     * Set product
+     * Add product
      *
      * @param \AppBundle\Entity\Product $product
      *
      * @return ShopOrder
      */
-    public function setProduct(\AppBundle\Entity\Product $product = null)
+    public function addProduct(\AppBundle\Entity\Product $product)
     {
-        $this->product = $product;
+        $this->products[] = $product;
 
         return $this;
     }
 
     /**
-     * Get product
+     * Remove product
      *
-     * @return \AppBundle\Entity\Product
+     * @param \AppBundle\Entity\Product $product
      */
-    public function getProduct()
+    public function removeProduct(\AppBundle\Entity\Product $product)
     {
-        return $this->product;
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }
