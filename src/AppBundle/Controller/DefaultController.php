@@ -107,14 +107,12 @@ class DefaultController extends Controller
 
         $products = $shopOrder->getProducts();
 
-        // Get Blockchain.info parameters.
-        $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
         // Create callback url.
-        $callback_url = $request->getSchemeAndHttpHost() . '/callback/' . $shopOrder->getId() . '/' . $blockchainDotInfoParams['secret'];
+        $callback_url = $request->getSchemeAndHttpHost() . '/callback/' . $shopOrder->getId() . '/' . $this->container->getParameter('secret');
         // Set parameters for Blockchain.info address request.
-        $params = 'xpub=' . $blockchainDotInfoParams['xpub'] . '&callback=' . urlencode( $callback_url ) . '&key=' . $blockchainDotInfoParams['api_key'];
+        $params = 'xpub=' . $this->container->getParameter('blockchain_xpub') . '&callback=' . urlencode( $callback_url ) . '&key=' . $this->container->getParameter('blockchain_api_key');
         // Get address to pay from Blockchain.info
-        $response = \Requests::get( $blockchainDotInfoParams['receive_url'] . '?' . $params );
+        $response = \Requests::get( 'https://api.blockchain.info/v2/receive?' . $params );
 
 
         print_r($response->body);
@@ -135,11 +133,9 @@ class DefaultController extends Controller
      * @Method("GET")
      */
     public function callbackAction( ShopOrder $shopOrder, Request $request ) {
-        // Get Blockchain.info parameters.
-        $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
 
         // Verify the secret word.
-        if ( $request->get('secret') != $blockchainDotInfoParams['secret'] ) {
+        if ( $request->get('secret') != $this->container->getParameter('secret') ) {
             die( 'AYE WHATCHA DOIN THERE!?!?!' );
         } else {
             // Get and process response data from Blockchain.info
