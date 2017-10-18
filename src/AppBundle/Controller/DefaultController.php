@@ -53,6 +53,7 @@ class DefaultController extends Controller
         $priceId = $request->get('price_id');
         // Get the price option from DB.
         $em = $this->getDoctrine()->getManager();
+        $productObj = $em->getRepository('AppBundle:Product')->find( $product->getId() );
         $priceOpt = $em->getRepository('AppBundle:PriceOption')->find( $priceId );
 
 
@@ -64,7 +65,7 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             // Set some other order info.
-            $shopOrder->addProduct( $product );
+            $shopOrder->addProduct( $productObj );
             $shopOrder->setOrderPaid( false );
             $shopOrder->setOrderStatus( 'pending_payment' );
             $shopOrder->setOrderTotalUsd( $priceOpt->getPrice() );
