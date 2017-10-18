@@ -105,6 +105,8 @@ class DefaultController extends Controller
             return $this->redirectToRoute( 'homepage' );
         }
 
+        $products = $shopOrder->getProducts();
+
         // Get Blockchain.info parameters.
         $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
         // Create callback url.
@@ -119,8 +121,9 @@ class DefaultController extends Controller
         // die();
 
         return $this->render('default/order_pay.html.twig', array(
+            'products'  => $products,
             'shopOrder' => $shopOrder,
-            'pay_to' => '18iyJANMcUoR4ZZNjv3W6nzvsRaPdw7Ck4'       // To change for API response
+            'pay_to'    => '18iyJANMcUoR4ZZNjv3W6nzvsRaPdw7Ck4'       // To change for API response
         ));
     }
 
