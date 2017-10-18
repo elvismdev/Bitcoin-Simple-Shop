@@ -159,7 +159,8 @@ class ShopOrder
     private $btcAddressId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
 
@@ -388,30 +389,6 @@ class ShopOrder
     public function getCountry()
     {
         return $this->country;
-    }
-
-    /**
-     * Set product
-     *
-     * @param \stdClass $product
-     *
-     * @return ShopOrder
-     */
-    public function setProduct($product)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return \stdClass
-     */
-    public function getProduct()
-    {
-        return $this->product;
     }
 
     /**
@@ -653,5 +630,28 @@ class ShopOrder
     {
         return $this->btcAddressId;
     }
-}
 
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return ShopOrder
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+}
