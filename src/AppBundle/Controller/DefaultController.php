@@ -72,7 +72,6 @@ class DefaultController extends Controller
             $totalBTC = $blockchainInfo->toBTC( $priceOpt->getPrice() );
             $shopOrder->setOrderTotalBtc( $totalBTC );
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($shopOrder);
             $em->flush();
 
