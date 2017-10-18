@@ -113,9 +113,9 @@ class DefaultController extends Controller
         $params = 'xpub=' . $this->container->getParameter('blockchain_xpub') . '&callback=' . urlencode( $callback_url ) . '&key=' . $this->container->getParameter('blockchain_api_key');
         // Get address to pay from Blockchain.info
         $response = \Requests::get( 'https://api.blockchain.info/v2/receive?' . $params );
+        $response = json_decode( $response->body );
 
-
-        print_r($response->body['address']);
+        print_r($response['address']);
         die();
 
         return $this->render('default/order_pay.html.twig', array(
