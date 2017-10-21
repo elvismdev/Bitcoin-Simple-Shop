@@ -5,7 +5,6 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class ShopOrderType extends AbstractType
 {
@@ -14,28 +13,7 @@ class ShopOrderType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-        ->add('email', EmailType::class)
-        ->add('name')
-        ->add('lastName')
-        ->add('address')
-        ->add('address2')
-        ->add('city')
-        ->add('state')
-        ->add('zip')
-        ->add('country')
-        // ->add('product')
-        // ->add('orderTotalBtc')
-        // ->add('orderTotalUsd')
-        // ->add('createdAt')
-        // ->add('updatedAt')
-        // ->add('orderPaid')
-        // ->add('orderStatus')
-        // ->add('amountPaid')
-        // ->add('difference')
-        // ->add('transactionHash')
-        // ->add('btcAddressId')
-        ;
+        $builder->add('email')->add('name')->add('lastName')->add('address')->add('address2')->add('city')->add('state')->add('zip')->add('country')->add('orderTotalBtc')->add('orderTotalUsd')->add('createdAt')->add('updatedAt')->add('orderPaid')->add('orderStatus')->add('amountPaid')->add('difference')->add('transactionHash')->add('btcAddressId')->add('products');
     }
     
     /**

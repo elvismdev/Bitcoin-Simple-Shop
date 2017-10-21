@@ -13,7 +13,8 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('body')->add('price');
+        
+        $builder->add('title')->add('body')->add('updatedAt')->add('createdAt')->add('slug')->add('priceOptions');
     }
     
     /**
