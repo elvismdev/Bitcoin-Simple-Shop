@@ -39,6 +39,8 @@ Point the server virtual host to `/srv/public_html/web/`
 
 Load the storefront in your browser `http://myshopdomain.com/`
 
+> Note that you could test drive this simple shop from your own `localhost` or run it using the [Symfony built-in web server](https://symfony.com/doc/current/setup/built_in_web_server.html#starting-the-web-server), but the paywall page *( /pay/{order_id} )* would fail to load, since the application has to be reachable from the Internet to receive the unique BTC address from Blockchain.info API to submit the order payment.
+
 ## Store backend
 
 Go to `/admin` and you'll see an HTTP basic auth prompt, use the default credentials:
