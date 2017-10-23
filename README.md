@@ -23,12 +23,7 @@ CD into the server root and install the application dependencies.
 ```
 $ cd /srv/public_html/ && composer install
 ```
-
-Make a copy of `parameters.yml.dist` to `parameters.yml` and edit/set in this last one the configuration details required.
-
-```
-$ cp app/config/parameters.yml.dist app/config/parameters.yml && nano app/config/parameters.yml
-```
+> Composer install will also ask for the application parameters such as DB connection details, application secret token and Blockchain.info API key and xPub for the wallet account. Then it will auto-generate the `app/config/parameters.yml` file. 
 
 Run the commands below to generate an empty database schema for the shop:
 
