@@ -61,7 +61,7 @@ Finally add some products, and have fun (contribute).
 
 ![Demo checkout](web/assets/img/demo-checkout.jpg)
 
-#### Food for nerds
+#### Talk Nerdy To Me
 - Built on [Symfony Framework](https://symfony.com/)
 - Admin backend by [EasyAdmin](https://github.com/javiereguiluz/EasyAdminBundle)
 - Uses [Blockchain.info API](https://blockchain.info/api) for exchange rates and [BTC wallet](https://blockchain.info/wallet) payments
