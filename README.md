@@ -1,6 +1,6 @@
 # Bitcoin Simple Shop
 
-*Proof of concept for a Bitcoin only ecommerce site. This project is intended for small shops with few products (but don't use it for real business).*
+*Proof of concept for a Bitcoin only e-commerce site using [Blockchain.info Wallet](https://blockchain.info/wallet). This project is intended for small shops with few products (but please don't use it for real business).*
 
 ## Requirements
 - Composer
