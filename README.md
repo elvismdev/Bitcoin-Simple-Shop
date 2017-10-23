@@ -67,4 +67,4 @@ Finally add some products, and have fun (contribute).
 - Uses [Blockchain.info API](https://blockchain.info/api) for exchange rates and [BTC wallet](https://blockchain.info/wallet) payments
 - Frontend with [Material Dashboard](https://www.creative-tim.com/product/material-dashboard) components (and some custom tweaks)
 - Icons by [Font Awesome](http://fontawesome.io/)
-- [Issues](https://github.com/elvismdev/Bitcoin-E-Commerce-Store/issues) and [PR's](https://github.com/elvismdev/Bitcoin-E-Commerce-Store/pulls) are welcome :thumbsup:
+- [Issues](https://github.com/elvismdev/Bitcoin-E-Commerce-Store/issues) && [PR's](https://github.com/elvismdev/Bitcoin-E-Commerce-Store/pulls) && [Donations](https://blockchain.info/address/18EJr8bG8StbQbtcqZcXwHF87kqLMxZ4rC) are welcome :thumbsup:
