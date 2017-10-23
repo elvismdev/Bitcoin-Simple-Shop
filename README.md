@@ -37,7 +37,25 @@ $ php bin/console doctrine:schema:update --force
 
 Point the server virtual host to `/srv/public_html/web/`
 
-Load the shop in your browser, add some products, have fun (contribute).
+Load the storefront in your browser `http://myshopdomain.com/`
+
+## Store backend
+
+Go to `/admin` and you'll see an HTTP basic auth prompt, use the default credentials:
+- User: **admin**
+- Pass: **admin**
+
+To change the default password run the command below:
+
+```
+php bin/console security:encode-password
+```
+
+Copy the generated password hash and replace the default at [this line here](app/config/security.yml#L8). Also you could change the *admin* username [here](app/config/security.yml#L7) for whatever you like to.
+
+> Learn more about Symfony security and how to extend this in the [official docs](https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate).
+
+Finally add some products, and have fun (contribute).
 
 ![alt text](https://raw.githubusercontent.com/elvismdev/Bitcoin-Simple-Shop/master/web/assets/img/demo-checkout.jpg)
 
