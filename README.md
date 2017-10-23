@@ -59,7 +59,7 @@ Copy the generated password hash and replace the default at [this line here](app
 
 Finally add some products, and have fun (contribute).
 
-![alt text](https://raw.githubusercontent.com/elvismdev/Bitcoin-Simple-Shop/master/web/assets/img/demo-checkout.jpg)
+![Demo checkout](web/assets/img/demo-checkout.jpg)
 
 #### Food for nerds
 - Built on [Symfony Framework](https://symfony.com/)
