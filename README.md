@@ -48,7 +48,7 @@ Load the shop in your browser, add some products, have fun (contribute).
 
 #### Food for nerds
 - Built on [Symfony Framework](https://symfony.com/)
-- Admin Backend by [EasyAdmin](https://github.com/javiereguiluz/EasyAdminBundle)
+- Admin backend by [EasyAdmin](https://github.com/javiereguiluz/EasyAdminBundle)
 - Uses [Blockchain.info API](https://blockchain.info/api) for exchange rates and [BTC wallet](https://blockchain.info/wallet) payments
 - Frontend with [Material Dashboard](https://www.creative-tim.com/product/material-dashboard) components (and some custom styles)
 - Icons by [Font Awesome](http://fontawesome.io/)
