@@ -65,6 +65,6 @@ Finally add some products, and have fun (contribute).
 - Built on [Symfony Framework](https://symfony.com/)
 - Admin backend by [EasyAdmin](https://github.com/javiereguiluz/EasyAdminBundle)
 - Uses [Blockchain.info API](https://blockchain.info/api) for exchange rates and [BTC wallet](https://blockchain.info/wallet) payments
-- Frontend with [Material Dashboard](https://www.creative-tim.com/product/material-dashboard) components (and some custom styles)
+- Frontend with [Material Dashboard](https://www.creative-tim.com/product/material-dashboard) components (and some custom tweaks)
 - Icons by [Font Awesome](http://fontawesome.io/)
 - [Issues](https://github.com/elvismdev/Bitcoin-E-Commerce-Store/issues) and [PR's](https://github.com/elvismdev/Bitcoin-E-Commerce-Store/pulls) are welcome :thumbsup:
