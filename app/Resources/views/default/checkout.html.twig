@@ -6,7 +6,7 @@
 			<div class="col-lg-6">
 
 				<h2 class="h2-responsive center-on-small-only product-name">
-					<strong>{{ product.title }}</strong> - <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span> <span class="grey-text product-price"><small>${{ product.price }}</small></span>
+					<strong>{{ product.title }}</strong> - <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span> <span class="grey-text product-price"><small>${{ product_price }}</small></span>
 				</h2>
 
 				<div class="card">
@@ -98,5 +98,24 @@
 		</div>
 
 		<div><a href="{{ path('product_show', { 'slug': product.slug }) }}"><i class="material-icons">keyboard_arrow_left</i>Back to product detail page</a></div>
+
+	{% endblock %}
+
+
+	{% block javascripts %}
+		{{ parent() }}
+
+		<script type="text/javascript">
+		// Get and display Bitcoin Price.
+		let bitcoinPrice = document.getElementById('bitcoin-price');
+		let uri = "{{ tobtc_endpoint|e('js') }}{{ product_price }}"
+		fetchAsync(uri)
+		.then(function(data) {
+			bitcoinPrice.textContent = data.toFixed(4);
+		})
+		.catch(function(error) {
+			console.log(error);
+		});
+		</script>
 
 	{% endblock %}

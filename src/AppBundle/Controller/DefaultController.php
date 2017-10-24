@@ -29,7 +29,7 @@ class DefaultController extends Controller
     /**
      * Do the checkout, sets an order.
      *
-     * @Route("/checkout", name="checkout")
+     * @Route("/checkout/{price_id}", name="checkout")
      * @Method({"GET", "POST"})
      */
     public function checkoutAction(Request $request, BlockchainDotInfoService $blockchainInfo)
@@ -49,6 +49,14 @@ class DefaultController extends Controller
         }
 
 
+        // Get price ID if any.
+        $priceId = $request->get('price_id');
+        // Get the price option from DB.
+        $em = $this->getDoctrine()->getManager();
+        $productObj = $em->getRepository('AppBundle:Product')->find( $product->getId() );
+        $priceOpt = $em->getRepository('AppBundle:PriceOption')->find( $priceId );
+
+
         // Create a new shop order form.
         $shopOrder = new Shoporder();
         $form = $this->createForm('AppBundle\Form\ShopOrderType', $shopOrder);
@@ -57,15 +65,14 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             // Set some other order info.
-            $shopOrder->setProduct( $product );
+            $shopOrder->addProduct( $productObj );
             $shopOrder->setOrderPaid( false );
             $shopOrder->setOrderStatus( 'pending_payment' );
-            $shopOrder->setOrderTotalUsd( $product->getPrice() );
+            $shopOrder->setOrderTotalUsd( $priceOpt->getPrice() );
             // Set final total in BTC for this order.
-            $totalBTC = $blockchainInfo->toBTC( $product->getPrice() );
+            $totalBTC = $blockchainInfo->toBTC( $priceOpt->getPrice() );
             $shopOrder->setOrderTotalBtc( $totalBTC );
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($shopOrder);
             $em->flush();
 
@@ -73,6 +80,7 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/checkout.html.twig', array(
+            'product_price'  => $priceOpt->getPrice(),
             'tobtc_endpoint' => $this->container->getParameter('tobtc_endpoint'),
             'checkout_form' => $form->createView(),
         ));
@@ -97,22 +105,21 @@ class DefaultController extends Controller
             return $this->redirectToRoute( 'homepage' );
         }
 
-        // Get Blockchain.info parameters.
-        $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
+        $products = $shopOrder->getProducts();
+
         // Create callback url.
-        $callback_url = $request->getSchemeAndHttpHost() . '/callback/' . $shopOrder->getId() . '/' . $blockchainDotInfoParams['secret'];
+        $callback_url = $request->getSchemeAndHttpHost() . '/callback/' . $shopOrder->getId() . '/' . $this->container->getParameter('secret');
         // Set parameters for Blockchain.info address request.
-        $params = 'xpub=' . $blockchainDotInfoParams['xpub'] . '&callback=' . urlencode( $callback_url ) . '&key=' . $blockchainDotInfoParams['api_key'];
+        $params = 'xpub=' . $this->container->getParameter('blockchain_xpub') . '&callback=' . urlencode( $callback_url ) . '&key=' . $this->container->getParameter('blockchain_api_key');
         // Get address to pay from Blockchain.info
-        $response = \Requests::get( $blockchainDotInfoParams['receive_url'] . '?' . $params );
+        $response = \Requests::get( 'https://api.blockchain.info/v2/receive?' . $params );
+        $response = json_decode( $response->body );
 
-
-        // print_r($response->body);
-        // die();
 
         return $this->render('default/order_pay.html.twig', array(
+            'products'  => $products,
             'shopOrder' => $shopOrder,
-            'pay_to' => '18iyJANMcUoR4ZZNjv3W6nzvsRaPdw7Ck4'       // To change for API response
+            'pay_to'    => $response->address
         ));
     }
 
@@ -124,11 +131,9 @@ class DefaultController extends Controller
      * @Method("GET")
      */
     public function callbackAction( ShopOrder $shopOrder, Request $request ) {
-        // Get Blockchain.info parameters.
-        $blockchainDotInfoParams = $this->container->getParameter('blockchain_dot_info');
 
         // Verify the secret word.
-        if ( $request->get('secret') != $blockchainDotInfoParams['secret'] ) {
+        if ( $request->get('secret') != $this->container->getParameter('secret') ) {
             die( 'AYE WHATCHA DOIN THERE!?!?!' );
         } else {
             // Get and process response data from Blockchain.info

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product
@@ -37,11 +38,15 @@ class Product
     private $body;
 
     /**
-     * @var float
+     * Many Product have Many Prices.
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\PriceOption", cascade={"persist"})
+     * @ORM\JoinTable(name="product_price_option",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id")}
+     *      )
      */
-    private $price;
+    private $priceOptions;
 
     /**
      * @var \DateTime
@@ -64,6 +69,11 @@ class Product
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
+
+
+    public function __construct() {
+        $this->priceOptions = new ArrayCollection();
+    }
 
 
     /**
@@ -124,29 +134,6 @@ class Product
         return $this->body;
     }
 
-    /**
-     * Set price
-     *
-     * @param float $price
-     *
-     * @return Product
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
 
     /**
      * Set updatedAt
@@ -215,5 +202,50 @@ class Product
 
         return $this;
     }
-}
 
+    /**
+     * To string method for this Entity.
+     */
+    public function __toString() {
+        return $this->title;
+    }
+
+
+
+
+    /**
+     * Add priceOption
+     *
+     * @param \AppBundle\Entity\PriceOption $priceOption
+     *
+     * @return Product
+     */
+    public function addPriceOption(\AppBundle\Entity\PriceOption $priceOption)
+    {
+        $this->priceOptions[] = $priceOption;
+
+        return $this;
+    }
+
+    /**
+     * Remove priceOption
+     *
+     * @param \AppBundle\Entity\PriceOption $priceOption
+     */
+    public function removePriceOption(\AppBundle\Entity\PriceOption $priceOption)
+    {
+        $this->priceOptions->removeElement($priceOption);
+    }
+
+    /**
+     * Get priceOptions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPriceOptions()
+    {
+        return $this->priceOptions;
+    }
+
+
+}

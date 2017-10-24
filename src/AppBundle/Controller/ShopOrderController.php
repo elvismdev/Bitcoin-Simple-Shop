@@ -15,22 +15,6 @@ use AppBundle\Service\BlockchainDotInfoService;
  */
 class ShopOrderController extends Controller
 {
-    /**
-     * Lists all shopOrder entities.
-     *
-     * @Route("/", name="shoporder_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $shopOrders = $em->getRepository('AppBundle:ShopOrder')->findAll();
-
-        return $this->render('shoporder/index.html.twig', array(
-            'shopOrders' => $shopOrders,
-        ));
-    }
 
 
     /**

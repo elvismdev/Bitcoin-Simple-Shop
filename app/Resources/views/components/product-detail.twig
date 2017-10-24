@@ -2,10 +2,6 @@
     <div class="row">
         <div class="col-lg-6">
             <h2 class="h2-responsive center-on-small-only product-name"><strong>{{ product.title }}</strong></h2>
-            <h4 class="h4-responsive center-on-small-only">
-                <span class="green-text product-price"><strong><i class="fa fa-btc"></i><span id="bitcoin-price"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span>
-                <span class="grey-text product-price"><small><i class="fa fa-usd"></i>{{ product.price }}</small></span>
-            </h4>
 
             <div class="card">
                 <div class="card-header" data-background-color="purple">
@@ -22,7 +18,24 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 center-on-small-only text-md-right">
-                        <a href="{{ path( 'checkout' ) }}"><button class="btn btn-primary waves-effect waves-light pull-right"><i class="fa fa-cart-plus" aria-hidden="true"></i> Buy Now</button></a>
+                        {# Loop all available prices #}
+                        <div class="pull-right" id="price-list">
+                            {% for opt in product.priceOptions %}
+                                <div class="md-radio">
+                                    <input id="{{ opt.id }}" type="radio" name="g" value="{{ opt.id }}">
+                                    <label for="{{ opt.id }}">
+
+                                        <span class="green-text product-price"><strong>{{ opt.days }} Days - <i class="fa fa-btc"></i><span id="bitcoin-price-{{ opt.id }}"><i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span></strong></span>
+                                        <span class="grey-text product-price"><small><i class="fa fa-usd"></i>{{ opt.price }}</small></span>
+
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <a id="checkout-url"><button id="btn-checkout" class="btn btn-primary waves-effect waves-light pull-right disabled"><i class="fa fa-cart-plus" aria-hidden="true"></i> Buy Now</button></a>
                     </div>
                 </div>
             </div>

@@ -38,18 +38,6 @@
                                 <p>Store</p>
                             </a>
                         </li>
-                        <li class="{{ route in ['product_index', 'product_new', 'product_edit'] ? 'active' }}">
-                            <a href="{{ path('product_index') }}">
-                                <i class="material-icons">local_offer</i>
-                                <p>Products</p>
-                            </a>
-                        </li>
-                        <li class="{{ route in ['shoporder_index', 'shoporder_show'] ? 'active' }}">
-                            <a href="{{ path('shoporder_index') }}">
-                                <i class="material-icons">shopping_basket</i>
-                                <p>Orders</p>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -111,16 +99,19 @@
         // Set the product from the session.
         {% set product = app.session.get('product') %}
 
+        {# Loop all available prices #}
+        {% for opt in product.priceOptions %}
         // Get and display Bitcoin Price.
-        let bitcoinPrice = document.getElementById('bitcoin-price');
-        let uri = "{{ tobtc_endpoint|e('js') }}{{ product.price }}"
-        fetchAsync(uri)
+        let bitcoinPrice{{ opt.id }} = document.getElementById('bitcoin-price-{{ opt.id }}');
+        let uri{{ opt.id }} = "{{ tobtc_endpoint|e('js') }}{{ opt.price }}"
+        fetchAsync(uri{{ opt.id }})
         .then(function(data) {
-            bitcoinPrice.textContent = data.toFixed(4);
+            bitcoinPrice{{ opt.id }}.textContent = data.toFixed(4);
         })
         .catch(function(error) {
             console.log(error);
         });
+        {% endfor %}
 
 
         

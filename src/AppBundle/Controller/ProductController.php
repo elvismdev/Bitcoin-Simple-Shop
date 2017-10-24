@@ -14,22 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class ProductController extends Controller
 {
-    /**
-     * Lists all product entities.
-     *
-     * @Route("/", name="product_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository('AppBundle:Product')->findAll();
-
-        return $this->render('product/index.html.twig', array(
-            'products' => $products,
-        ));
-    }
 
     /**
      * Creates a new product entity.
@@ -85,7 +70,7 @@ class ProductController extends Controller
     /**
      * Finds and displays a product entity.
      *
-     * @Route("/{slug}/{quick_checkout}", name="product_show", defaults={"quick_checkout" = 0})
+     * @Route("/{slug}/{quick_checkout}/{price_id}", name="product_show", defaults={"quick_checkout" = 0, "price_id" = 0})
      * @Method("GET")
      */
     public function showAction(Product $product, Request $request)
@@ -94,9 +79,11 @@ class ProductController extends Controller
         // Save Product in session in case of checkout.
         $session = $request->getSession();
         $session->set('product', $product);
+        // Get price ID if any.
+        $priceId = $request->get('price_id');
 
         // If quick checkout, redirect to checkout.
-        if ( $request->get( 'quick_checkout' ) == 1 ) return $this->redirectToRoute( 'checkout' );
+        if ( $request->get( 'quick_checkout' ) == 1 && !is_null( $priceId ) ) return $this->redirectToRoute( 'checkout', array( 'price_id' => $priceId ) );
 
         // Or redirect to product detail page.
         return $this->render('product/show.html.twig', array(

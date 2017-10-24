@@ -4,9 +4,11 @@
     <div class="row">
         <div class="col-lg-6">
 
-            <h2 class="h2-responsive center-on-small-only product-name">
-                <strong>{{ shopOrder.product.title }}</strong> <span class="grey-text order-id"><small>Order ID: {{ shopOrder.id }}</small></span>
-            </h2>
+            {% for product in products %}
+                <h2 class="h2-responsive center-on-small-only product-name">
+                    <strong>{{ product.title }}</strong>
+                </h2>
+            {% endfor %}
 
             <div class="card">
                 <div class="card-header" data-background-color="purple">
@@ -16,6 +18,7 @@
 
                     <div class="row">
                         <div class="col-md-4">
+                            <span class="grey-text order-id">Order ID: {{ shopOrder.id }}</span>
 
                             <h3>Ship To:</h3>
                             {{ shopOrder.name }} {{ shopOrder.lastName }}<br>

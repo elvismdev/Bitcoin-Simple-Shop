@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ShopOrder
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ShopOrder
 {
+
     /**
      * @var int
      *
@@ -86,13 +88,6 @@ class ShopOrder
     private $country;
 
     /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="product", type="object")
-     */
-    private $product;
-
-    /**
      * @var float
      *
      * @ORM\Column(name="order_total_btc", type="float")
@@ -163,6 +158,23 @@ class ShopOrder
      * @ORM\Column(name="btc_address_id", type="string", length=255, nullable=true)
      */
     private $btcAddressId;
+
+
+    /**
+     * Many Orders have Many Products.
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", cascade={"persist"})
+     * @ORM\JoinTable(name="product_shop_order",
+     *      joinColumns={@ORM\JoinColumn(name="shop_order_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
+     *      )
+     */
+    private $products;
+
+
+    public function __construct() {
+        $this->products = new ArrayCollection();
+    }
 
 
     /**
@@ -389,30 +401,6 @@ class ShopOrder
     public function getCountry()
     {
         return $this->country;
-    }
-
-    /**
-     * Set product
-     *
-     * @param \stdClass $product
-     *
-     * @return ShopOrder
-     */
-    public function setProduct($product)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return \stdClass
-     */
-    public function getProduct()
-    {
-        return $this->product;
     }
 
     /**
@@ -654,5 +642,42 @@ class ShopOrder
     {
         return $this->btcAddressId;
     }
-}
 
+
+
+
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return ShopOrder
+     */
+    public function addProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\Product $product
+     */
+    public function removeProduct(\AppBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}
